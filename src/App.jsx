@@ -1,4 +1,4 @@
-import './App.css'
+import '/src/App.css'
 import {File} from "./components/File.jsx";
 import {Folder} from "./components/Folder.jsx";
 import PDF from '/src/images/pdf.png';
