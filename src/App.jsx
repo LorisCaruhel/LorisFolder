@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { File } from './components/File.jsx';
+import {File} from "./components/File.jsx";
+import {Folder} from "./components/Folder.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <h1>Hello World !</h1>
-      <File name="Test" image="Test" />
-    </>
-  )
+  return <>
+      <div className={"container"}>
+          <Folder name={"TestTestTestTestTest"} image={DOSSIER_OUVERT}/>
+          <File name={"TestTestTestTestTestFile"} image={PDF}/>
+      </div>
+  </>
 }
 
 export default App
