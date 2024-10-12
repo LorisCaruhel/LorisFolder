@@ -26,8 +26,8 @@ body {
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
+    flex-direction: row;
     gap: 20px;
     width: 90vw;
     height: auto;

@@ -4,8 +4,17 @@ import { useInfiniteQuery } from 'react-query';
 import { Folder } from '/src/components/Folder.jsx';
 import { File } from '/src/components/File.jsx';
 
+import PDF from '/src/images/pdf.png';
+import CODE from '/src/images/code.png';
+import CSV from '/src/images/csv.png';
+import DOSSIER_OUVERT from '/src/images/dossier_ouvert.png';
+import DOSSIER_FERME from '/src/images/dossier_ferme.png';
+import FICHIER from '/src/images/fichier.png';
+import FLECHE from '/src/images/fleche_retour.png';
+import ZIP from '/src/images/zip.png';
+
 const FileExplorer = ({ owner, repo, branch }) => {
-    // Fonction pour formater l'URL GitHub
+    // URL API GitHub.
     const formatGitHubUrl = (path) => {
         return `https://github.com/${owner}/${repo}/blob/${branch}/Cours`;
     };
@@ -24,7 +33,7 @@ const FileExplorer = ({ owner, repo, branch }) => {
         };
     };
 
-    // Utilisation de React Query avec la pagination infinie
+    // Scroll infinie.
     const {
         data,
         fetchNextPage,
@@ -35,7 +44,7 @@ const FileExplorer = ({ owner, repo, branch }) => {
         getNextPageParam: (lastPage) => lastPage.nextPage,
     });
 
-    // Fonction pour écouter le scroll et charger plus de fichiers
+    // Regarder le niveau du scroll dans la page
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && hasNextPage) {
@@ -47,22 +56,50 @@ const FileExplorer = ({ owner, repo, branch }) => {
     }, [hasNextPage, fetchNextPage]);
 
     // Image par défaut pour les dossiers et fichiers
-    const folderImage = 'path/to/folder-icon.png'; // Image pour les dossiers
-    const fileImage = 'path/to/file-icon.png';     // Image pour les fichiers
+    const folderImage = DOSSIER_FERME;
 
-    // Génère l'affichage de l'arborescence des fichiers/dossiers
+    // Fonction pour déterminer l'image à afficher en fonction de l'extension
+    const getFileImage = (fileName) => {
+        const extension = fileName.split('.').pop().toLowerCase(); // Extraire l'extension
+
+        // Retourner la bonne image en fonction de l'extension.
+        switch (extension) {
+            case 'pdf':
+                return PDF;
+            case 'csv':
+                return CSV;
+            case 'zip':
+                return ZIP;
+            case 'js':
+            case 'jsx':
+            case 'html':
+            case 'css':
+            case 'json':
+            case 'c':
+            case 'php':
+            case 'md':
+                return CODE;
+            default:
+                return FICHIER; // Image par défaut si l'extension n'est pas reconnue
+        }
+    };
+
+    // Affichage finale des fichiers et dossiers
     const renderTree = (tree) => {
-        return tree.map((item) => (
-            <div key={item.sha}>
-                {item.type === 'tree' ? (
-                    // Utilisation du composant Folder pour les dossiers
-                    <Folder name={item.path} image={folderImage} />
-                ) : (
-                    // Utilisation du composant File pour les fichiers
-                    <File name={item.path} image={fileImage} />
-                )}
-            </div>
-        ));
+        return tree.map((item) => {
+            // Juste le nom du fichiers ou dossiers
+            const name = item.path.split('/').pop();
+
+            return (
+                <div key={item.sha}>
+                    {item.type === 'tree' ? (
+                        <Folder name={name} image={folderImage} />
+                    ) : (
+                        <File name={name} image={getFileImage(name)} />
+                    )}
+                </div>
+            );
+        });
     };
 
     return (
