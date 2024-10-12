@@ -20,6 +20,7 @@ Affiche toutes l'arborescence d'un dossier et navigations dans celui-ci.
 - [React Query](https://react-query.tanstack.com/) - Pour la gestion des requêtes et de l'état des données.
 - [Axios](https://axios-http.com/) - Pour faire des requêtes HTTP.
 - CSS pour le style et la mise en page.
+- Certaines icônes viennent de : https://skillicons.dev/
 
 ## Installation
 
