@@ -1,0 +1,25 @@
+2023-11-23 10:56:19.227 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb] Start DB remove/truncate scan, id=1 dbId=22 dbName=relvar_141
+2023-11-23 10:56:19.227 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb] End DB remove/truncate scan, id=1 scanned=2 dbId=22 dbName=relvar_141
+2023-11-23 10:56:38.395 UTC SEVERE [/home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb] /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb:FileDeletionDetector exited unexpectedly with exception java.io.IOException: Directory /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb does not exist now. Something abnormal may happen.java.io.IOException: Directory /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb does not exist now. Something abnormal may happen.
+	at com.sleepycat.je.log.FileDeletionDetector.processLogFileDeleteEvents(FileDeletionDetector.java:248)
+	at com.sleepycat.je.log.FileDeletionDetector.access$100(FileDeletionDetector.java:42)
+	at com.sleepycat.je.log.FileDeletionDetector$FileDeleteDetectTask.run(FileDeletionDetector.java:166)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+
+2023-11-23 11:09:17.586 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=2 dbId=24 dbName=relvar_170
+2023-11-23 11:09:17.587 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=2 scanned=0 dbId=24 dbName=relvar_170
+2023-11-23 11:09:17.599 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=3 dbId=26 dbName=relvar_173
+2023-11-23 11:09:17.599 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=3 scanned=0 dbId=26 dbName=relvar_173
+2023-11-23 11:09:17.614 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=4 dbId=28 dbName=relvar_176
+2023-11-23 11:09:17.614 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=4 scanned=0 dbId=28 dbName=relvar_176
+2023-11-23 11:09:17.629 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=5 dbId=30 dbName=relvar_179
+2023-11-23 11:09:17.629 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=5 scanned=0 dbId=30 dbName=relvar_179
+2023-11-23 11:09:17.671 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=6 dbId=32 dbName=relvar_185
+2023-11-23 11:09:17.671 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=6 scanned=0 dbId=32 dbName=relvar_185
+2023-11-23 11:09:17.693 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=7 dbId=34 dbName=relvar_188
+2023-11-23 11:09:17.693 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=7 scanned=0 dbId=34 dbName=relvar_188
+2023-11-23 11:09:17.744 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=8 dbId=36 dbName=relvar_193
+2023-11-23 11:09:17.744 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=8 scanned=0 dbId=36 dbName=relvar_193
+2023-11-23 11:09:17.762 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] Start DB remove/truncate scan, id=9 dbId=38 dbName=relvar_196
+2023-11-23 11:09:17.762 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD2/BDD/Reldb] End DB remove/truncate scan, id=9 scanned=0 dbId=38 dbName=relvar_196

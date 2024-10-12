@@ -1,0 +1,108 @@
+/*** Rel Database Backup ***/
+
+// Created in Rel Version 3.016.0
+// Using DatabaseToScript version 0.3.8
+
+BEGIN TRANSACTION;
+
+CALL SET_UNIQUE_NUMBER(274);
+
+ANNOUNCE 'var pub.Overview';
+VAR pub.Overview REAL RELATION {content CHARACTER, revPrompt BOOLEAN} KEY {};
+pub.Overview := RELATION {content CHARACTER, revPrompt BOOLEAN} {
+	TUPLE {content "Edit the pub.Overview variable to change this text.\nThe \"contents\" attribute value will appear here.\nSet the \"revPrompt\" attribute to FALSE to only display this overview.", revPrompt true}
+}
+;
+
+ANNOUNCE 'var pays';
+VAR pays REAL RELATION {nomp CHARACTER, superficie INTEGER, pop INTEGER} KEY {nomp};
+pays := RELATION {nomp CHARACTER, superficie INTEGER, pop INTEGER} {
+	TUPLE {nomp "Allemagne", superficie 357, pop 80767},
+	TUPLE {nomp "Belgique", superficie 30, pop 11203},
+	TUPLE {nomp "Danemark", superficie 43, pop 5627},
+	TUPLE {nomp "Espagne", superficie 504, pop 46163},
+	TUPLE {nomp "France", superficie 640, pop 66000},
+	TUPLE {nomp "Italie", superficie 301, pop 60782},
+	TUPLE {nomp "Luxembourg", superficie 2, pop 524},
+	TUPLE {nomp "Pays Bas", superficie 41, pop 16357}
+}
+;
+
+ANNOUNCE 'var ville';
+VAR ville REAL RELATION {nomv CHARACTER, nomp CHARACTER} KEY {nomv};
+ville := RELATION {nomv CHARACTER, nomp CHARACTER} {
+	TUPLE {nomv "Berlin", nomp "Allemagne"},
+	TUPLE {nomv "Besan\u00E7on", nomp "France"},
+	TUPLE {nomv "Bonn", nomp "Allemagne"},
+	TUPLE {nomv "Cologne", nomp "Allemagne"},
+	TUPLE {nomv "Dusseldorf", nomp "Allemagne"},
+	TUPLE {nomv "Hambourg", nomp "Allemagne"},
+	TUPLE {nomv "Le Havre", nomp "France"},
+	TUPLE {nomv "Liege", nomp "Belgique"},
+	TUPLE {nomv "Lyon", nomp "France"},
+	TUPLE {nomv "Maastricht", nomp "Pays Bas"},
+	TUPLE {nomv "Magdebourg", nomp "Allemagne"},
+	TUPLE {nomv "Namur", nomp "Belgique"},
+	TUPLE {nomv "Nantes", nomp "France"},
+	TUPLE {nomv "Paris", nomp "France"},
+	TUPLE {nomv "Rotterdam", nomp "Pays Bas"},
+	TUPLE {nomv "Rouen", nomp "France"},
+	TUPLE {nomv "Sedan", nomp "France"},
+	TUPLE {nomv "Strasbourg", nomp "France"},
+	TUPLE {nomv "Utrecht", nomp "Pays Bas"},
+	TUPLE {nomv "Verdun", nomp "France"}
+}
+;
+
+ANNOUNCE 'var mer';
+VAR mer REAL RELATION {nomm CHARACTER, surface INTEGER} KEY {nomm};
+mer := RELATION {nomm CHARACTER, surface INTEGER} {
+	TUPLE {nomm "Atlantique", surface 106400},
+	TUPLE {nomm "Baltique", surface 415},
+	TUPLE {nomm "Manche", surface 6},
+	TUPLE {nomm "Mediterranee", surface 2500},
+	TUPLE {nomm "Mer Noire", surface 436},
+	TUPLE {nomm "Mer Rouge", surface 438},
+	TUPLE {nomm "Mer d'Oman", surface 3600},
+	TUPLE {nomm "Mer du Nord", surface 750}
+}
+;
+
+ANNOUNCE 'var fleuve';
+VAR fleuve REAL RELATION {nomf CHARACTER, longueur INTEGER, nomm CHARACTER} KEY {nomf};
+fleuve := RELATION {nomf CHARACTER, longueur INTEGER, nomm CHARACTER} {
+	TUPLE {nomf "Elbe", longueur 1091, nomm "Mer du Nord"},
+	TUPLE {nomf "Loire", longueur 1012, nomm "Atlantique"},
+	TUPLE {nomf "Meuse", longueur 950, nomm "Mer du Nord"},
+	TUPLE {nomf "Rhin", longueur 1350, nomm "Mer du Nord"},
+	TUPLE {nomf "Rh\u00F4ne", longueur 812, nomm "Mediterranee"},
+	TUPLE {nomf "Seine", longueur 776, nomm "Manche"}
+}
+;
+
+ANNOUNCE 'var traverse';
+VAR traverse REAL RELATION {nomp CHARACTER, nomf CHARACTER} KEY {nomp, nomf};
+traverse := RELATION {nomp CHARACTER, nomf CHARACTER} {
+	TUPLE {nomp "Allemagne", nomf "Elbe"},
+	TUPLE {nomp "Allemagne", nomf "Rhin"},
+	TUPLE {nomp "France", nomf "Loire"},
+	TUPLE {nomp "France", nomf "Meuse"},
+	TUPLE {nomp "France", nomf "Rhin"},
+	TUPLE {nomp "France", nomf "Rh\u00F4ne"},
+	TUPLE {nomp "France", nomf "Seine"},
+	TUPLE {nomp "Pays Bas", nomf "Meuse"},
+	TUPLE {nomp "Pays Bas", nomf "Rhin"}
+}
+;
+
+ANNOUNCE 'constraint ville_fk_se_situe';
+CONSTRAINT ville_fk_se_situe ville { nomp } <= pays { nomp };
+
+ANNOUNCE 'constraint fleuve_fk_se_jette';
+CONSTRAINT fleuve_fk_se_jette fleuve { nomm } <= mer { nomm };
+
+COMMIT;
+
+/*** End of Rel Database Backup ***/
+ANNOUNCE 'End of Script.';
+
