@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Folder } from '/src/components/Folder.jsx';
@@ -61,11 +61,6 @@ const FileExplorer = ({ owner, repo, branch }) => {
         }
     };
 
-    // Modification : fonction pour formater les URLs GitHub pour les fichiers depuis la branche "main"
-    const formatGitHubUrl = (path) => {
-        return `https://github.com/${owner}/${repo}/blob/main/${path}`; // Pointage vers la branche "main"
-    };
-
     // Filtrage des fichiers/dossiers en fonction du chemin courant
     const filterTreeByCurrentPath = (tree) => {
         return tree.filter((item) => {
@@ -104,7 +99,7 @@ const FileExplorer = ({ owner, repo, branch }) => {
                         <File
                             name={name}
                             image={getFileImage(name)}
-                            path={formatGitHubUrl(item.path)} // Utilisation de formatGitHubUrl pour générer le lien correct
+                            path={item.path}
                         />
                     )}
                 </div>
