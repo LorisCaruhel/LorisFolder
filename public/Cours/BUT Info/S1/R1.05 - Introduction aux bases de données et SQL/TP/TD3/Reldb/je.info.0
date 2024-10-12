@@ -1,0 +1,20 @@
+2023-12-11 09:02:30.768 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=1 dbId=22 dbName=relvar_141
+2023-12-11 09:02:30.769 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=1 scanned=2 dbId=22 dbName=relvar_141
+2023-12-11 09:04:41.587 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=2 dbId=24 dbName=relvar_176
+2023-12-11 09:04:41.587 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=2 scanned=0 dbId=24 dbName=relvar_176
+2023-12-11 09:04:41.702 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=3 dbId=26 dbName=relvar_200
+2023-12-11 09:04:41.702 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=3 scanned=0 dbId=26 dbName=relvar_200
+2023-12-11 09:04:41.758 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=4 dbId=28 dbName=relvar_213
+2023-12-11 09:04:41.758 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=4 scanned=0 dbId=28 dbName=relvar_213
+2023-12-11 09:04:41.799 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=5 dbId=25 dbName=relvar_181
+2023-12-11 09:04:41.799 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=5 scanned=0 dbId=25 dbName=relvar_181
+2023-12-11 09:04:41.819 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=6 dbId=27 dbName=relvar_206
+2023-12-11 09:04:41.819 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=6 scanned=0 dbId=27 dbName=relvar_206
+2023-12-11 09:04:41.873 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=7 dbId=29 dbName=relvar_218
+2023-12-11 09:04:41.873 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=7 scanned=0 dbId=29 dbName=relvar_218
+2023-12-14 09:58:06.036 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=8 dbId=30 dbName=relvar_225
+2023-12-14 09:58:06.039 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=8 scanned=7 dbId=30 dbName=relvar_225
+2023-12-14 09:58:06.074 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=9 dbId=31 dbName=relvar_226
+2023-12-14 09:58:06.074 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=9 scanned=8 dbId=31 dbName=relvar_226
+2023-12-14 09:58:06.144 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] Start DB remove/truncate scan, id=10 dbId=32 dbName=relvar_227
+2023-12-14 09:58:06.144 UTC INFO [/home/etuinfo/lcaruhel/Cours/BDD/TD3/Reldb] End DB remove/truncate scan, id=10 scanned=13 dbId=32 dbName=relvar_227

@@ -1,0 +1,278 @@
+!!! NE MODIFIEZ PAS LA STRUCTURE DE CE FICHIER !!!
+
+Nom :Caruhel
+Prénom :Loris
+Groupe TP :1A1
+
+IMPORTANT : si vous avez rencontré un problème pendant la séance, décrivez-le entre les lignes de tirets :
+----------------------------------------------------------------
+----------------------------------------------------------------
+
+
+Exercice 1.4 (affichage dans l'ordre A..Z)
+----------------------------------------------------------------
+;; programme principal
+main:       ; DSKY en mode 11 (affichage de caractères ascii)
+            LD  R0, 11
+            OUT R0, 255
+            ; int i = 26
+            LD  R0, 0      ; nombre de boucles
+.repeter:   ; 
+            ;   afficher(i)
+            CALL afficherR0
+            ;   R0-- => appel de la fonction avec 25..0
+            INC R0
+.jusqua:    ; } jusqu'à (R0 == 0)
+            CMP R0, 26
+            BNE .repeter
+            ; fin du programme
+            HLT
+
+;; affichage de R0 sur le port 11
+afficherR0:
+            PUSH R0         ; sauver la valeur de R0 sur la pile
+            ADD R0, 'A'     ; ajouter le code ascii de la lettre A
+            OUT R0, 11      ; afficher le caractère obtenu
+            POP R0          ; remettre R0 comme il était
+            RET
+----------------------------------------------------------------
+
+
+Exercice 1.5 (échanger `R0` et `R1` via la pile)
+----------------------------------------------------------------
+;; programme principal
+main:       ; DSKY en mode 10 (affichage de nombres)
+            LD  R0, 10
+            OUT R0, 255
+            ; R0 = 14, R1 = 23
+            LD  R0, 14
+            LD  R1, 23
+            ; appel de la fonction
+            CALL swap
+            ; affichages
+            OUT R0, 10      ; devra afficher 23
+            OUT R1, 10      ; devra afficher 14
+            ; fin du programme
+            HLT
+
+;; échange les valeurs de R0 et R1
+swap:       ; TODO au retour, R0 = ancienne valeur de R1, et réciproquement
+            ; contrainte : uniquement des PUSH et des POP
+            PUSH R0
+            PUSH R1
+            POP R0
+            POP R1
+            RET
+----------------------------------------------------------------
+
+
+Exercice 2.2 (fonction puts)
+----------------------------------------------------------------
+;; programme principal
+main:       ; DSKY en mode 11 (affichage de caractères ascii)
+            LD  R0, 11
+            OUT R0, 255
+            ; écrire le message sur le port 11
+            LD  R0, message
+            CALL puts
+            ; fin du programme
+            HLT
+
+message:    DB "Bonjour, comment ca va ?", 0
+
+;; fonction puts(R0)
+;; affiche la chaîne située en R0 sur le port 11
+puts:       ; TODO sauver les registres utilisés
+            PUSH R0
+            LD R1, [R0]
+            ; TODO recopier tout ce qu'il faut du programme précédent
+.tantque:   CMP R1, 0
+            BEQ .fintantque
+.faire:     OUT R1, 11
+            INC R0
+            LD  R1, [R0]
+            BRA .tantque
+.fintantque:
+            LD  R1, '\n'
+            OUT R1, 11
+
+            POP R0
+            RET
+----------------------------------------------------------------
+
+
+Exercice 2.3 (fonction gets)
+----------------------------------------------------------------
+;; programme principal
+main:       ; DSKY en mode 11 (affichage de caractères ascii)
+            LD  R0, 11
+            OUT R0, 255
+            ; afficher un message d'invite (prompt)
+            LD  R0, invite
+            CALL puts
+            ; lire une ligne dans la zone réservée en mémoire (buffer)
+            LD  R0, ligne
+            CALL gets
+            ; ré-afficher cette ligne (en écho)
+            ; R0 n'a pas été changé, donc c'est toujours ligne
+            CALL puts
+            ; fin du programme
+            HLT
+
+invite:     DB "Saisissez une ligne", 0
+ligne:      RB 40
+
+
+;; fonction puts(R0)
+;; affiche la chaîne située en R0 sur le port 11
+puts:       ; TODO sauver les registres utilisés
+            PUSH R0
+            PUSH R1
+            LD R1, [R0]
+            ; TODO recopier tout ce qu'il faut du programme précédent
+.tantque:   CMP R1, 0
+            BEQ .fintantque
+.faire:     OUT R1, 11
+            INC R0
+            LD  R1, [R0]
+            BRA .tantque
+.fintantque:
+            LD  R1, '\n'
+            OUT R1, 11
+
+            POP R1
+            POP R0
+            RET
+
+;; fonction gets(R0)
+;; enregistre les codes ascii venant du port 11 dans la mémoire à partir de R0
+gets:       ; TODO sauver les registres utilisés
+            PUSH R0
+            PUSH R1
+            ; lire le premier caractère du port 11 dans R1
+            IN  R1, 11
+.tantque:   ; TODO tant que R1 != '\n' {
+            CMP R1, '\n'
+            BEQ .fintantque
+           
+.faire:     ;    TODO stocker R1 dans la case [R0] du tableau
+            ST R1, [R0]
+            ;    TODO adresse de la case suivante
+            INC R0
+            ;    TODO lire le prochain caractère du port 11 dans R1
+            IN R1, 11
+            ; }
+            BRA .tantque
+.fintantque:
+            ; mettre un code nul à l'adresse donnée par R0, à la place du \n
+            LD  R1, 0
+            ST R1, [R0]
+            ; TODO restaurer les registres
+            POP R1
+            POP R0
+            RET
+
+----------------------------------------------------------------
+
+
+Exercice 2.4 (fonction strlen)
+----------------------------------------------------------------
+;; programme principal
+main:       ; DSKY en mode 10 (affichage de nombres)
+            LD  R0, 10
+            OUT R0, 255
+            ; obtenir la longueur du message dans R0
+            LD  R0, message
+            CALL strlen
+            ; afficher cette longueur sur le DSKY
+            OUT R0, 10
+            ; fin du programme
+            HLT
+
+message:    DB "Bonjour, comment ca va ?", 0
+
+
+;; fonction strlen(R0)
+;; calcule la longueur de la chaîne située en R0 et la retourne dans R0
+strlen:     ; TODO sauver les registres utilisés
+            PUSH R1
+            PUSH R0
+            ; TODO parcourir la chaîne en comptant les caractères, jusqu'à un 0
+.tantque: 
+            LD R1, [R0]
+            CMP R1, 0
+            BEQ .fintantque
+           
+.faire:
+            INC R0
+            BRA .tantque
+.fintantque:
+            ; TODO restaurer les registres
+            POP R1
+            SUB R0, R1
+            POP R1
+            RET
+
+----------------------------------------------------------------
+
+
+Exercice 2.5 (chenille)
+----------------------------------------------------------------
+;; programme principal
+main:       ; mettre le DSKY en mode 8 = LCD matriciel
+            LD  R0, 8
+            OUT R0, 255
+            ; dessiner la tête
+            LD  R0, data_tete
+            CALL dessiner
+            ; TODO dessiner 5 segments pour le corps
+           
+            LD R1, 0
+.repeter:   LD  R0, data_corps
+            CALL dessiner
+            INC R1
+
+.jusqua:    CMP R1, 5
+            BNE .repeter
+            
+            ; dessiner la queue
+            LD  R0, data_queue
+            CALL dessiner
+            ;fin du programme
+            HLT
+
+data_tete:  DB %00111101
+            DB %01001010
+            DB %01000010
+            DB %01111100
+
+data_corps: DB %00111000
+            DB %01000100
+            DB %11110100
+            DB %01000100
+
+data_queue: DB %00101000
+            DB %00010000
+            DB %00000000
+            DB %00000000
+
+;; recopie 4 octets à partir de R0 sur le port 8
+dessiner:   ; TODO votre fonction doit envoyer les 4 octets situés à
+            ; l'adresse R0 sur le port 8, mais sans modifier R0 au retour
+            PUSH R0
+            PUSH R1
+
+            LD R1, [R0+0]
+            OUT R1, 8
+            LD R1, [R0+1]
+            OUT R1, 8
+            LD R1, [R0+2]
+            OUT R1, 8
+            LD R1, [R0+3]
+            OUT R1, 8
+
+            POP R1
+            POP R0            
+
+            RET
+----------------------------------------------------------------

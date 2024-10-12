@@ -1,0 +1,6 @@
+{
+    "comment" : " + utype si nom de type utilisateur",
+    "nomf" : { "type" : "char"},
+    "longueur" : { "type" : "num"},
+    "nomm" : { "type" : "char" }
+}

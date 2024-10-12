@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="ageH1"></h1>
+    <h1 id="majeur"></h1>
+
+    <button id="plus">+</button>
+    <button id="plus10">+10</button>
+    <p id="result"></p>
+    <button id="moins">-</button>
+
+    <button id="moins10">-10</button>
+
+    <script>
+        let date = new Date();
+        let age = 18; // prompt("Entrez votre âge : ")
+        let anneeN = parseInt(date.getFullYear()) - age;
+
+        const h1Age = document.getElementById("ageH1");
+        const majeur = document.getElementById("majeur");
+
+        if(age >= 18) {
+            h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
+            majeur.innerHTML += `Vous êtes majeur !`;
+        } else if(age > 0)  {
+            h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
+            majeur.innerHTML += `Vous n'êtes pas majeur...`;
+        } else {
+            majeur.innerHTML += `L'âge est bizarre là...`;
+        }
+
+        let val1 = 10, val2 = 20;
+        console.log(val1 > val2 ? `La plus grande valeur est ${val2}` : `La plus petite est ${val1}`);
+
+        let dateJ = date.getDay();
+        console.log(dateJ == 0 || dateJ == 6 ? "Nous sommes le week end" : "Nous sommes en semaine");
+
+        switch(dateJ){
+            case 0:
+                console.log("Nous sommes Dimanche");
+                break;
+            case 1:
+                console.log("Nous sommes Lundi");
+                break;
+            case 2:
+                console.log("Nous sommes Mardi");
+                break;
+            case 3:
+                console.log("Nous sommes Mercredi");
+                break;
+            case 4:
+                console.log("Nous sommes Jeudi");
+                break;
+            case 5:
+                console.log("Nous sommes Vendredi");
+                break;
+            case 6:
+                console.log("Nous sommes Samedi");
+                break;
+            default:
+                console.log("Erreur");
+                break;
+        }
+
+        function getRandomInt(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+
+        // let rep = 0;
+        // let test = parseInt(prompt("Entrez de nouveau un nombre :"));
+        // let borneMin = parseInt(prompt("Entrez la borne min :"));
+        // let borneMax = parseInt(prompt("Entrez la borne max :"));
+        // let tentatives = 0;
+        // let rejoue = false;
+
+        // while(rep !== test && !rejoue) {
+        //     if(!(borneMin && borneMax)) {
+        //         borneMin = parseInt(prompt("Entrez la borne min :"));
+        //         borneMax = parseInt(prompt("Entrez la borne max :"));
+        //         if(borneMin > borneMax) {
+        //             rep = getRandomInt(borneMax, borneMin);
+        //         } else {
+        //             rep = getRandomInt(borneMin, borneMax);
+        //         }
+        //         rep = getRandomInt(borneMin, borneMax);   
+        //     } else {
+        //         if(test < rep) {
+        //             console.log("Plus");
+        //         } else if(test > rep) {
+        //             console.log("Moins");
+        //         } else {
+        //             console.log(`Vous avez trouvé avec ${tentatives} tentatives ! Le chiffre était ${rep}`);
+        //             rejoue = confirm("Vous voulez rejouer ?");
+        //         }
+        //         tentatives++;
+        //         test = parseInt(prompt("Entrez de nouveau un nombre :"));
+        //     }
+        // }
+        
+        function calculerPerimetSurf(longueur, largeur=longueur) {
+            let surface = (longueur*largeur);
+            let perimetre = (longueur*2) + (largeur*2);
+
+            return {perimetre, surface};
+        }
+
+        console.log(calculerPerimetSurf(4, 5)["surface"]);
+        console.log(calculerPerimetSurf(4, 5)["perimetre"]);
+
+        console.log(calculerPerimetSurf(5)["surface"]);
+        console.log(calculerPerimetSurf(5)["perimetre"]);
+        
+
+
+        // const buttonPlus = document.getElementById("plus");
+        // const buttonMoins = document.getElementById("moins");
+        // const buttonPlus10 = document.getElementById("plus10");
+        // const buttonMoins10 = document.getElementById("moins10");
+        // const result = document.getElementById("result");
+
+        // let nombre = 0;
+        // result.innerHTML += nombre;
+
+        // buttonPlus.addEventListener("click", () => {
+        //     if(nombre < rep) {
+        //         console.log("Plus");
+        //         nombre++;
+        //         tentatives++;
+        //     } else if(nombre > rep) {
+        //         console.log("Moins");
+        //         nombre++;
+        //         tentatives++;
+        //     } else {
+        //         console.log(`Vous avez trouvé avec ${tentatives} tentatives ! Le chiffre était ${rep}`);
+        //     }
+
+        //     result.innerHTML = nombre;
+        // });
+
+        // buttonMoins.addEventListener("click", () => {
+        //     if(nombre != 0) {
+        //         if(nombre < rep) {
+        //             console.log("Plus");
+        //             nombre--;
+        //         } else if(nombre > rep) {
+        //             console.log("Moins");
+        //             nombre--;
+        //         }
+
+        //         result.innerHTML = nombre;
+        //     }
+        // })
+
+        // buttonPlus10.addEventListener("click", () => {
+        //     nombre += 10;
+        //     tentatives++;
+
+        //     if(nombre < rep) {
+        //         console.log("Plus");
+        //     } else if(nombre > rep) {
+        //         console.log("Moins");
+        //     }
+
+        //     result.innerHTML = nombre;
+        // });
+
+        // buttonMoins10.addEventListener("click", () => {
+        //     if(nombre != 0) {
+        //         nombre -= 10;
+
+        //         if(nombre < rep) {
+        //             console.log("Plus");
+        //         } else if(nombre > rep) {
+        //             console.log("Moins");
+        //         }
+                
+        //         result.innerHTML = nombre;
+        //     }
+        // })
+    </script>
+</body>
+</html>
