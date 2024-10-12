@@ -158,7 +158,9 @@ const FileExplorer = ({ owner, repo, branch }) => {
                             onClick={() => handleFolderClick(item.path)}
                         />
                     ) : (
-                        <File name={name} image={getFileImage(name)} path={item.path} />
+                        <>
+                            <File name={name} image={getFileImage(name)} path={item.path}/>
+                        </>
                     )}
                 </div>
             );
