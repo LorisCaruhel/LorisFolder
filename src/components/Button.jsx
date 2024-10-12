@@ -1,13 +1,15 @@
-import FLECHE from "../images/fleche_retour.png";
-import React from "react";
+import React from 'react';
 
-export function Button({path, image, handleBackClick, ...props}) {
-    return <>
-        <div className={"divRetour"}>
-            <button onClick={handleBackClick}>
-                <img src={image} alt="Retour"/>
-                <p>{path}</p>
-            </button>
-        </div>
-    </>
-}
+/**
+ * @param {string} image - L'image du bouton retour
+ * @param {function} onClick - La fonction appelée lors du clic
+ * @returns {JSX.Element}
+ */
+export const Button = ({ path, image, onClick }) => {
+    return (
+        <button onClick={onClick}>
+            <img src={image} alt="Retour" />
+            <p>{path}</p>
+        </button>
+    );
+};
