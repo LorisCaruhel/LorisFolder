@@ -2,13 +2,16 @@
  *
  * @param {string} name
  * @param {string} image
- * @param {Object} props
+ * @param {string} path
+ * @param {function} onClick
  * @returns {JSX.Element}
  * @constructor
  */
-export function Folder({name, image, ...props}) {
-    return <div className="folder">
-        <img src={image} alt={name}/>
-        <a href={image}>{name}</a>
-    </div>
+export function Folder({ name, image, path, onClick, ...props }) {
+    return (
+        <div className="folder" onClick={onClick} {...props} style={{ cursor: 'pointer' }}>
+            <img src={image} alt={name} />
+            <span>{name}</span>
+        </div>
+    );
 }

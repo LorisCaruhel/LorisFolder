@@ -6,9 +6,9 @@
  * @returns {JSX.Element}
  * @constructor
  */
-export function File({name, image, ...props}) {
+export function File({name, image, path, ...props}) {
     return <div className="file">
         <img src={image} alt={name}/>
-        <a href={image}>{name}</a>
+        <a href={path} download={path}>{name}</a>
     </div>
 }

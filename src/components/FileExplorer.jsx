@@ -12,57 +12,62 @@ import DOSSIER_FERME from '/src/images/dossier_ferme.png';
 import FICHIER from '/src/images/fichier.png';
 import FLECHE from '/src/images/fleche_retour.png';
 import ZIP from '/src/images/zip.png';
+import {Button} from "./Button.jsx";
 
 const FileExplorer = ({ owner, repo, branch }) => {
-    // URL API GitHub.
+    const [currentPath, setCurrentPath] = useState(''); // Chemin courant
+    const [history, setHistory] = useState([]); // Historique des chemins parcourus
+
+    // URL API GitHub
     const formatGitHubUrl = (path) => {
-        return `https://github.com/${owner}/${repo}/blob/${branch}/Cours`;
+        return `https://github.com/${owner}/${repo}/blob/${branch}/${path}`;
     };
 
-    // Fonction pour récupérer 50 fichiers/dossiers à la fois
-    const fetchTree = async ({ pageParam = 0 }) => {
+    // Fonction pour récupérer tous les fichiers/dossiers
+    const fetchTree = async () => {
         const response = await axios.get(
             `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`
         );
-        const allTree = response.data.tree;
-        const startIndex = pageParam * 50;
-        const endIndex = startIndex + 50;
-        return {
-            data: allTree.slice(startIndex, endIndex),
-            nextPage: endIndex < allTree.length ? pageParam + 1 : undefined, // Pagination
-        };
+        return response.data.tree;
     };
 
-    // Scroll infinie.
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isLoading,
-    } = useInfiniteQuery(['treeData', branch], fetchTree, {
-        getNextPageParam: (lastPage) => lastPage.nextPage,
-    });
+    // Scroll infini
+    const { data, isLoading } = useInfiniteQuery('treeData', fetchTree);
 
-    // Regarder le niveau du scroll dans la page
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && hasNextPage) {
-                fetchNextPage(); // Charger plus de fichiers si on atteint le bas de la page
+    // Gérer les dossiers cliqués pour navigation
+    const handleFolderClick = (folderPath) => {
+        setHistory((prev) => [...prev, currentPath]); // Ajouter le chemin actuel à l'historique
+        setCurrentPath(folderPath); // Mettre à jour le chemin courant
+    };
+
+    // Gérer le retour en arrière
+    const handleBackClick = () => {
+        setCurrentPath(history[history.length - 1] || ''); // Retourner au dernier chemin
+        setHistory((prev) => prev.slice(0, prev.length - 1)); // Retirer le dernier chemin de l'historique
+    };
+
+    // Filtrer les fichiers/dossiers en fonction du chemin courant
+    const filterTreeByCurrentPath = (tree) => {
+        return tree.filter((item) => {
+            const pathParts = item.path.split('/');
+            const folderParts = currentPath.split('/');
+
+            // Affiche les éléments dans le chemin courant ou les sous-éléments immédiats
+            if (currentPath === '') {
+                return pathParts.length === 1; // Afficher les éléments racine
             }
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [hasNextPage, fetchNextPage]);
 
-    // Image par défaut pour les dossiers et fichiers
-    const folderImage = DOSSIER_FERME;
+            return (
+                pathParts.slice(0, folderParts.length).join('/') === currentPath &&
+                pathParts.length === folderParts.length + 1
+            );
+        });
+    };
 
-    // Fonction pour déterminer l'image à afficher en fonction de l'extension
+    // Déterminer l'image à afficher en fonction de l'extension
     const getFileImage = (fileName) => {
         const extension = fileName.split('.').pop().toLowerCase(); // Extraire l'extension
 
-        // Retourner la bonne image en fonction de l'extension.
         switch (extension) {
             case 'pdf':
                 return PDF;
@@ -77,25 +82,30 @@ const FileExplorer = ({ owner, repo, branch }) => {
             case 'json':
             case 'c':
             case 'php':
+            case 'java':
             case 'md':
                 return CODE;
             default:
-                return FICHIER; // Image par défaut si l'extension n'est pas reconnue
+                return FICHIER;
         }
     };
 
     // Affichage finale des fichiers et dossiers
     const renderTree = (tree) => {
-        return tree.map((item) => {
-            // Juste le nom du fichiers ou dossiers
-            const name = item.path.split('/').pop();
+        const filteredTree = filterTreeByCurrentPath(tree); // Filtrer selon le chemin courant
+        return filteredTree.map((item) => {
+            const name = item.path.split('/').pop(); // Juste le nom du fichier ou dossier
 
             return (
                 <div key={item.sha}>
                     {item.type === 'tree' ? (
-                        <Folder name={name} image={folderImage} />
+                        <Folder
+                            name={name}
+                            image={DOSSIER_FERME}
+                            onClick={() => handleFolderClick(item.path)}
+                        />
                     ) : (
-                        <File name={name} image={getFileImage(name)} />
+                        <File name={name} image={getFileImage(name)} path={item.path} />
                     )}
                 </div>
             );
@@ -104,15 +114,15 @@ const FileExplorer = ({ owner, repo, branch }) => {
 
     return (
         <div>
+            {currentPath && (
+                <Button path={currentPath} image={FLECHE} handleBackClick={handleBackClick} />
+            )}
             {isLoading ? (
                 <p>Chargement de mes fichiers...</p>
             ) : (
-                <>
-                    {data.pages.map((page, index) => (
-                        <div key={index}>{renderTree(page.data)}</div>
-                    ))}
-                    {isFetchingNextPage && <p>Chargement de plus de fichiers...</p>}
-                </>
+                <div>
+                    {renderTree(data?.pages[0] || [])}
+                </div>
             )}
         </div>
     );

@@ -8,9 +8,9 @@ const queryClient = new QueryClient();
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
+            <h1>Mes fichiers</h1>
             <div className="container">
-                <h1>Mes fichiers</h1>
-                <FileExplorer owner="LorisCaruhel" repo="LorisFolder" branch="main" />
+                <FileExplorer owner="LorisCaruhel" repo="LorisFolder" branch="main"/>
             </div>
         </QueryClientProvider>
     );
