@@ -26,8 +26,8 @@ Affiche toutes l'arborescence d'un dossier et navigations dans celui-ci.
 
 1. Clonez le dépôt :
     ```bash
-    git clone https://github.com/votre-utilisateur/votre-depot.git
-    cd votre-depot
+    git clone https://github.com/LorisCaruhel/LorisFolder.git
+    cd LorisFolder
     ```
 
 2. Installez les dépendances :
