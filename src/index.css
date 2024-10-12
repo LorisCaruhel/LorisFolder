@@ -86,3 +86,25 @@ button p {
 button:hover {
     cursor: pointer;
 }
+
+@media (max-width: 640px) {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        height: auto;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .folder, .file {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0px;
+        gap: 10px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+    }
+}
