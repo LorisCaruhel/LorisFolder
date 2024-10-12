@@ -1,0 +1,5 @@
+{
+    "comment" : " + utype si nom de type utilisateur",
+    "nomm" : { "type" : "char" },
+    "surface" : { "type" : "num"}
+}

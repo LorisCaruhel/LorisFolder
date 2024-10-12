@@ -1,0 +1,44 @@
+
+/* ***   ********  ******* 
+
+/******************/
+import java.io.*;
+
+
+public class Saisir { 
+	
+	private static BufferedReader entree=new BufferedReader (new InputStreamReader (System.in));
+	
+	static int entier() throws IOException {
+		int res;
+		res= Integer.parseInt(entree.readLine());
+		return res;
+	}
+	
+	static double reeld() throws IOException{
+		double res;
+		res= Double.parseDouble(entree.readLine());
+		return res;
+	}
+	
+	static String chaine() throws IOException{
+		String res;
+		res= entree.readLine();
+		return res;		
+	}
+	
+	static char car() throws IOException{
+		char res;
+		res=entree.readLine().charAt(0);
+		return res;		
+	}
+	
+	static float reelf() throws IOException{
+		float res;	
+		res= Float.parseFloat(entree.readLine());
+		return res;	
+		
+	}
+	
+   
+}
