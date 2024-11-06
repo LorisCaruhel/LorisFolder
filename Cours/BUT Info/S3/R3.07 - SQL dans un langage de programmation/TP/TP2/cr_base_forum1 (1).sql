@@ -332,4 +332,4 @@ ON forum2.comment
 FOR EACH ROW 
 EXECUTE FUNCTION delete_comment();
 
-SELECT * FROM forum2._document;
+SELECT * FROM forum2._comment;
