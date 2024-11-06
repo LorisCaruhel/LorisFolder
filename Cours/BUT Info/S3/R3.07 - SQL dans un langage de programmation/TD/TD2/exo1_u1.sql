@@ -1,7 +1,6 @@
 start transaction;
 
-SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
-SHOW TRANSACTION ISOLATION LEVEL;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 select classe from enfantS.enfant where nopers = 1; -- Verrou AS
 
