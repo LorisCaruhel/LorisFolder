@@ -98,9 +98,8 @@ public class Maximier implements Composite {
         		this.droit.setValeur(n);
         	}
     	} else {
-    		int temp = this.valeur;
-    		this.valeur = n;
     		this.inserer(this.valeur);
+    		this.valeur = n;
     	}
 
     	
