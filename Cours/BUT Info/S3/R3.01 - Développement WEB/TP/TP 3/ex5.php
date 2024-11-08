@@ -27,10 +27,14 @@ class Equipe {
     public $nom;
     public $coureurs = [];
 
-    private $forfait = false;
+    private $forfait;
 
     public function __construct($_nom) {
         $this->nom = $_nom;
+    }
+
+    public function trouveDossard($num) {
+        
     }
 
     public function ajouterCoureur($coureur) {
@@ -74,11 +78,15 @@ class Equipe {
     }
 
     public function forfaiter() {
-        foreach($coureurs as $key => $coureur) {
-            $coureur->abandon();
+        foreach($this->coureurs as $key => $coureur) {
+            $coureur->abandonner();
         }
 
         $this->forfait = true;
+    }
+
+    public function getForfait(){
+        return $this->forfait;
     }
 }
 
@@ -121,14 +129,14 @@ function creeTableauEquipe($equipe, $numEquipe) {
             <th colspan="3"><?php echo $equipe->nom ?></th>
         </tr>
         <tr>
-            <td rowspan="999" class="centrer"><?php echo $numEquipe ?></td>
+            <td rowspan="999" class="centrer" style="<?php echo ($equipe->getForfait() ? 'background-color:#f00;' : 'background-color:#fff;'); ?>"><?php echo $numEquipe ?></td>
         </tr>
         <?php
         foreach($equipe->coureurs as $key => $coureur) {
             ?>
-            <tr style="<?php echo $coureur->getAbandon() ? 'background-color:#f00;' : 'background-color:#fff;'; ?>">
+            <tr style="<?php echo ($coureur->getAbandon() ? 'background-color:#f00;' : 'background-color:#fff;'); ?>">
                 <td><?php echo $coureur->numero ?></td>
-                <td><?php echo $coureur->nom . $coureur->prenom ?></td>
+                <td><?php echo $coureur->nom . " " . $coureur->prenom ?></td>
             </tr>
             <?php
         }
@@ -139,8 +147,24 @@ function creeTableauEquipe($equipe, $numEquipe) {
     <?php
 }
 
+function trouveEquipe($nom) {
+    foreach($equipes as $num => $equipe) {
+        if($equipe->nom === $nom) {
+            return $equipe;
+        }
+    } 
+    return false;
+}
+
 $equipes = Equipe::creerEquipesAvecCourreur();
-print_r($equipes['equipe_0']->coureurs[0]->getAbandon());
+$equipeTrouve = trouveEquipe("AG2R CITROEN TEAM");
+
+print($equipes[0]->nom);
+if(!$equipeTrouve) {
+    echo "Pas trouvé";
+} else {
+    print_r($equipeTrouve);
+}
 
 foreach($equipes as $key => $equipeData) {
     creeTableauEquipe($equipeData, $key);
