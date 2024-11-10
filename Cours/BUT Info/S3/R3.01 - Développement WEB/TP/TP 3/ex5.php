@@ -27,14 +27,10 @@ class Equipe {
     public $nom;
     public $coureurs = [];
 
-    private $forfait;
+    private $forfait = false;
 
     public function __construct($_nom) {
         $this->nom = $_nom;
-    }
-
-    public function trouveDossard($num) {
-        
     }
 
     public function ajouterCoureur($coureur) {
@@ -148,23 +144,51 @@ function creeTableauEquipe($equipe, $numEquipe) {
 }
 
 function trouveEquipe($nom) {
+    global $equipes;
+
     foreach($equipes as $num => $equipe) {
-        if($equipe->nom === $nom) {
+        if($equipe->nom == $nom) {
             return $equipe;
         }
     } 
     return false;
 }
 
-$equipes = Equipe::creerEquipesAvecCourreur();
-$equipeTrouve = trouveEquipe("AG2R CITROEN TEAM");
+function trouveDossard($num) {
+    global $equipes;
+    $trouve = [];
 
-print($equipes[0]->nom);
-if(!$equipeTrouve) {
-    echo "Pas trouvé";
-} else {
-    print_r($equipeTrouve);
+    foreach($equipes as $index => $equipe) {  
+        foreach($equipe->coureurs as $numC => $coureur) {
+            if($coureur->numero == $num) {  
+                $trouve[$equipe->nom] = $coureur;  
+                return $trouve;  
+            }
+        }
+    }
+    
+    return false;  
 }
+
+function verifier($valeur) {
+    if(!$valeur) {
+        echo("Pas trouvé !\n");
+    } else {
+        print_r($valeur);
+    }
+}
+
+$equipes = Equipe::creerEquipesAvecCourreur();
+$equipeTrouve1 = trouveEquipe("COFIDIS");
+$equipeTrouve2 = trouveEquipe("BILOUTE");
+
+$coureurTrouve1 = trouveDossard(25);
+$coureurTrouve2 = trouveDossard(3212);
+
+verifier($equipeTrouve1);
+verifier($equipeTrouve2);
+verifier($coureurTrouve1);
+verifier($coureurTrouve2);
 
 foreach($equipes as $key => $equipeData) {
     creeTableauEquipe($equipeData, $key);
