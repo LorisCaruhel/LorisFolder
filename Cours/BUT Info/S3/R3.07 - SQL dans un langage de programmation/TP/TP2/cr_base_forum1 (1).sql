@@ -200,7 +200,7 @@ begin
     FROM _comment c 
     INNER JOIN ids i ON c.ref = i.iddoc
   ) DELETE FROM forum2._comment WHERE iddoc IN (
-  SELECT * FROM ids
+  SELECT iddoc FROM ids
   );
   DELETE FROM forum2._post WHERE iddoc = OLD.iddoc;
   DELETE FROM forum2._document WHERE iddoc = OLD.iddoc;
@@ -332,4 +332,4 @@ ON forum2.comment
 FOR EACH ROW 
 EXECUTE FUNCTION delete_comment();
 
-SELECT * FROM forum2._document;
+SELECT * FROM forum2._comment;
