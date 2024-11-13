@@ -1,0 +1,7 @@
+2023-11-23 10:56:38.341 UTC SEVERE [/home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb/classes] /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb/classes:FileDeletionDetector exited unexpectedly with exception java.io.IOException: Directory /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb/classes does not exist now. Something abnormal may happen.java.io.IOException: Directory /home/etuinfo/lcaruhel/Cours/BDD/TD21/Reldb/classes does not exist now. Something abnormal may happen.
+	at com.sleepycat.je.log.FileDeletionDetector.processLogFileDeleteEvents(FileDeletionDetector.java:248)
+	at com.sleepycat.je.log.FileDeletionDetector.access$100(FileDeletionDetector.java:42)
+	at com.sleepycat.je.log.FileDeletionDetector$FileDeleteDetectTask.run(FileDeletionDetector.java:166)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+
