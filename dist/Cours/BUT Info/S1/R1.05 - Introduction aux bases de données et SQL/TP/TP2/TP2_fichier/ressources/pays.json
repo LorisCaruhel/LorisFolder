@@ -1,6 +1,0 @@
-{
-    "comment" : " + utype si nom de type utilisateur",
-    "nomp" : { "type" : "char" },
-    "superficie" : { "type" : "num"},
-    "pop" : {"type" : "num"}
-}
