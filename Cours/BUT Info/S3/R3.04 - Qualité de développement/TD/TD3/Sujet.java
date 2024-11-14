@@ -20,7 +20,7 @@ public abstract class Sujet {
 	}
 	
 	public void alerte(){
-		Iterator it;
+		Iterator<Observateur> it;
 		Observateur o;
 		
 		it=mesObs.iterator();
