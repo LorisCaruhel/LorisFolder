@@ -10,6 +10,7 @@ public interface Composite {
 	
 	public void afficherInfixe();
 	
-	public Composite inserer(Integer n);
-	public Composite supprimerRacine();
+	public Composite inserer(Processus p);
+	public Processus suivant();
+	public Composite supprimer();
 }

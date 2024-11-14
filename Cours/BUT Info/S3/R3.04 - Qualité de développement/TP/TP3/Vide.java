@@ -8,14 +8,12 @@ public class Vide implements Composite {
 
 	@Override
 	public Integer getPoids() {
-		System.out.println("C'est vide.");
 		return 0;
 	}
 
 	@Override
 	public Integer getValeur() {
-		System.out.println("C'est vide.");
-		return 0;
+		return -1;
 	}
 
 	@Override
@@ -35,20 +33,23 @@ public class Vide implements Composite {
 	}
 
 	@Override
-	public Composite inserer(Integer n) {
-		Feuille c = new Feuille(n);
-		return c;
+	public Composite inserer(Processus n) {
+		return new Feuille(n);
 	}
 
 	@Override
-	public Composite supprimerRacine() {
-		System.out.println("C'est vide.");
-		return null;
+	public Composite supprimer() {
+		return new Vide();
 	}
 
 	@Override
 	public void setValeur(Integer v) {
 		System.out.println("Cet objet n'a pas de valeur");
+	}
+
+	@Override
+	public Processus suivant() {
+		return null;
 	}
 
 }

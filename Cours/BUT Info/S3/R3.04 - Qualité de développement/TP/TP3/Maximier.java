@@ -1,34 +1,26 @@
 package TP3;
 
 public class Maximier implements Composite {
-    private Integer valeur;
+    private Processus process;
     private Composite gauche, droit;
 
    
     // Constructeur pour créer un Maximier avec une valeur donnée.
-    public Maximier(Integer v, Composite vDroite, Composite vGauche) {
-        this.valeur = v;
+    public Maximier(Processus p, Composite vDroite, Composite vGauche) {
+        this.process = p;
         this.gauche = vDroite;
         this.droit = vGauche;
     }
 
     // Méthode pour créer et retourner un objet Vide
-    public Vide createVide() {
-        return new Vide(); 
+    public static Composite createVide() {
+        return new Vide();
     }
     
     // Obtenir la somme des valeurs de l'arbre.
     @Override
     public Integer getPoids() {
-    	Integer poids = this.valeur;
-        
-        if (this.gauche != null) {
-            poids += this.gauche.getPoids();
-        }
-        if (this.droit != null) {
-            poids += this.droit.getPoids();
-        }
-        return poids;
+    	return this.process.getPrio() + this.gauche.getPoids() + this.droit.getPoids();
     }
 
     // Vérifier si l'arbre est vide.
@@ -40,13 +32,9 @@ public class Maximier implements Composite {
     // Affichage de l'arbre.
     @Override
     public void afficherInfixe() {
-    	System.out.print(this.valeur + " ");
-        if (this.gauche != null) {
-            this.gauche.afficherInfixe();
-        }
-        if (this.droit != null) {
-            this.droit.afficherInfixe();
-        }
+    	System.out.print("\nNoeud : " + this.process.toString());
+        this.gauche.afficherInfixe();
+        this.droit.afficherInfixe();
     }
     
     // Rechercher la présence d'un élément.
@@ -70,51 +58,51 @@ public class Maximier implements Composite {
     
     // Suppression de la racine.
     @Override
-    public Composite supprimerRacine() {
-    	Composite c;
+    public Composite supprimer() {
+    	System.out.println("Suppression de : " + this.process.toString());
     	
-    	if(this.valeur > this.gauche.getValeur()) {
-    		c = this.gauche;
-    		this.valeur = this.gauche.getValeur();
-    		this.gauche.supprimerRacine();
+    	if(this.process.getPrio() > this.gauche.getValeur()) {
+    		this.process.setPrio(this.gauche.getValeur());
+    		this.gauche = this.gauche.supprimer();
     	} else {
-    		c = this.droit;
-    		this.valeur = this.droit.getValeur();
-    		this.droit.supprimerRacine();
+    		this.process.setPrio(this.droit.getValeur());
+    		this.droit = this.droit.supprimer();
     	}
-    	
-    	return c;
+    	return this;
     }
     
 	// Inserer une valeur.
 	@Override
-	public Composite inserer(Integer n) {
-    	Feuille f = new Feuille(n);
-    	
-    	if(this.valeur > n) {
+	public Composite inserer(Processus p) {
+    	if(this.process.plusPrioritaire(p)) {
         	if(this.gauche.getPoids() < this.droit.getPoids()) {
-        		this.gauche.setValeur(n);
+        		this.gauche = this.gauche.inserer(p);
         	} else {
-        		this.droit.setValeur(n);
+        		this.droit = this.droit.inserer(p);
         	}
     	} else {
-    		this.inserer(this.valeur);
-    		this.valeur = n;
+    		Processus tmp = this.process;
+    		this.process = p;
+    		this.inserer(tmp);
     	}
 
-    	
-    	return f;
+    	return this;
 	}
 
     // Get la valeur.
 	@Override
 	public Integer getValeur() {
-		return this.valeur;
+		return this.process.getPrio();
 	}
 
 	@Override
 	public void setValeur(Integer v) {
-		this.valeur = v;
+		this.process.setPrio(v);
+	}
+
+	@Override
+	public Processus suivant() {
+    	return this.process;
 	}
 	
 	

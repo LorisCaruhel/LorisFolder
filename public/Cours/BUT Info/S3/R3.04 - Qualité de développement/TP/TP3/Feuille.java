@@ -1,20 +1,20 @@
 package TP3;
 
 public class Feuille implements Composite {
-	Integer valeur;
+	Processus process;
 	
-	public Feuille(Integer v) {
-		this.valeur = v;
+	public Feuille(Processus p) {
+		this.process = p;
 	}
 
 	@Override
 	public Integer getPoids() {
-		return this.getValeur();
+		return this.process.getPrio();
 	}
 
 	@Override
 	public Integer getValeur() {
-		return this.getValeur();
+		return this.process.getPrio();
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Feuille implements Composite {
 
 	@Override
 	public boolean contient(Integer v) {
-		if(this.getValeur() == v) {
+		if(this.process.getPrio() == v) {
 			return true;
 		}
 		return false;
@@ -32,23 +32,31 @@ public class Feuille implements Composite {
 
 	@Override
 	public void afficherInfixe() {
-		System.out.println("Une feuille, valeur : " + this.getValeur());
+		System.out.println("\nUne feuille, valeur : " + this.process.toString());
 	}
 
 	@Override
-	public Composite inserer(Integer n) {
-		Maximier m = new Maximier(this.getValeur(), new Vide(), new Feuille(n));
-		return m;
+	public Composite inserer(Processus p) {
+		if(this.process.plusPrioritaire(p)) {
+			return new Maximier(this.process, new Vide(), new Feuille(p));
+		} else {
+			return new Maximier(p, new Feuille(this.process), new Vide());
+		}
 	}
 
 	@Override
-	public Composite supprimerRacine() {
+	public Composite supprimer() {
 		return new Vide();
 	}
 
 	@Override
 	public void setValeur(Integer v) {
-		this.valeur = v;
+		this.process.setPrio(v);
+	}
+
+	@Override
+	public Processus suivant() {
+		return this.process;
 	}
 
 }
