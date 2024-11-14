@@ -1,6 +1,6 @@
 package TD4;
 
-public class Sel extends Met{
+public class Sel {
 
 	public Sel(String _nom, boolean _sucre, boolean _sale, int _calories) {
 		super(_nom, _sucre, _sale, _calories);
