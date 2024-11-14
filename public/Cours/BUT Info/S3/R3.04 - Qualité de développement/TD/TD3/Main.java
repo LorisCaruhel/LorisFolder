@@ -38,7 +38,9 @@ public class Main {
 		southampton.attache(fr);
 		
 		// Les tests
-		
+		brest.faireMesure();
+		paris.faireMesure();
+		lyon.faireMesure();
 	}
 
 }
