@@ -23,8 +23,8 @@ public class Feuille implements Composite {
 	}
 
 	@Override
-	public boolean contient(Integer v) {
-		if(this.process.getPrio() == v) {
+	public boolean contient(Processus p) {
+		if(this.process.getPrio() == p.getPrio()) {
 			return true;
 		}
 		return false;

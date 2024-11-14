@@ -6,7 +6,7 @@ public interface Composite {
 	public void setValeur(Integer v);
 	
 	public boolean estVide();
-	public boolean contient(Integer v);	
+	public boolean contient(Processus v);	
 	
 	public void afficherInfixe();
 	

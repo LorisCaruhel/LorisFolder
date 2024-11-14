@@ -39,21 +39,9 @@ public class Maximier implements Composite {
     
     // Rechercher la présence d'un élément.
     @Override
-    public boolean contient(Integer v) {
-    	Boolean trouve = false;
-    	
-        if (this.gauche != null && !trouve) {
-            if(this.gauche.getValeur() == v) {
-            	trouve = true;
-            }
-        }
-        if (this.droit != null && !trouve) {
-            if(this.droit.getValeur() == v) {
-            	trouve = true;
-            }
-        }
-    	
-    	return trouve;
+    public boolean contient(Processus p) {
+    	return (this.process.plusPrioritaire(p)) && ((this.process.getPrio() == p.getPrio()) 
+    			|| (this.gauche.contient(p) || (this.droit.contient(p))));
     }
     
     // Suppression de la racine.

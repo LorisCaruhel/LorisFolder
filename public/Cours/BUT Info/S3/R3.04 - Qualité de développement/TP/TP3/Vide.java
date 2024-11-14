@@ -22,8 +22,7 @@ public class Vide implements Composite {
 	}
 
 	@Override
-	public boolean contient(Integer v) {
-		System.out.println("C'est vide.");
+	public boolean contient(Processus p) {
 		return false;
 	}
 
