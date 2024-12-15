@@ -1,88 +1,137 @@
-package Maximier;
+package TP3;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Noeud extends Maximier {
-	Maximier g;
-	int val;
-	Maximier d;
+	public Maximier d;
+	public int val;
+	public Maximier g;
 	
-	
-	public Noeud(int v, Maximier mg, Maximier md) {
-		val = v;
-		g = mg;
-		d = md;
+	Noeud(int v, Maximier droit, Maximier gauche) {
+		this.val = v;
+		this.d = droit;
+		this.g = gauche;
 	}
-
-
+	
 	@Override
 	int poids() {
 		return 1 + g.poids() + d.poids();
 	}
 
-
 	@Override
 	Maximier inserer(int v) {
-		int a_inserer = v;
-		if(val < a_inserer) {
-			a_inserer = val;
-			val = v;
-		}
-		if(g.poids() < d.poids()) {
-			g = g.inserer(a_inserer);
-		} else {
-			d = d.inserer(a_inserer);
-		}
-		return this;
+	    if (val < v) {
+	        int temp = val;
+	        val = v;
+	        v = temp;
+	    }
+	    if (g.poids() < d.poids()) {
+	        g = g.inserer(v);
+	    } else {
+	        d = d.inserer(v);
+	    }
+	    return this;
 	}
-
 
 	@Override
 	boolean estVide() {
-		return true;
+		return false;
 	}
-
 
 	@Override
 	void afficherInf() {
-		System.out.println(g);
-		System.out.println(val);
-		System.out.println(d);
+		g.afficherInf();
+		System.out.println(this.val);
+		d.afficherInf();
 	}
-
 
 	@Override
 	Maximier supprimer(int v) {
 		Maximier trouve = this.rechercher(v);
-		Maximier res = this;
+		Maximier res = new MaximierVide();
+		ArrayList<Integer> valeurs = this.valeursMaximier();
+		
 		if(!trouve.estVide()) {
-			if(trouve.g.estVide() && trouve.d.estVide()) {
-				res = new MaximierVide();
-			} else if(trouve.g.estVide()) {
-				res = trouve.d;
-			} else if(trouve.d.estVide()) {
-				res = trouve.g;
-			} else {
-				// A faire
-				trouve.d = trouve.d.inserer(v);
-				res = trouve.d;
+			Iterator<Integer> iterator = valeurs.iterator();
+			while(iterator.hasNext()) {
+				int valeur = iterator.next(); 
+				
+				if(valeur != v) {
+					res = res.inserer(valeur);
+				}
+			}
+		}
+		
+		return res;
+	}
+	
+	public ArrayList<Integer> valeursMaximier() {
+	    ArrayList<Integer> valeurs = new ArrayList<>();
+	    valeurs.add(val);
+	    
+	    if (!g.estVide()) {
+	        valeurs.addAll(g.valeursMaximier());
+	    }
+	    if (!d.estVide()) {
+	        valeurs.addAll(d.valeursMaximier());
+	    }
+	    
+	    return valeurs;
+	}
+
+	@Override
+	Maximier rechercher(int v) {
+		Maximier trouve = new MaximierVide();
+		
+		if(val == v) {
+			trouve = this;
+		}else {
+			trouve = g.rechercher(v);
+			if(trouve.estVide()) {
+				d = d.rechercher(v);
+			}
+		}
+		
+		return trouve;
+	}
+
+	@Override
+	Integer getVal() {
+		return this.val;
+	}
+	
+	@Override
+	Integer plusGrandeValeur() {
+		Integer res = -1;
+		ArrayList<Integer> valeurs = this.valeursMaximier();
+		
+		Iterator<Integer> iterator = valeurs.iterator();
+		while(iterator.hasNext()) {
+			Integer current = iterator.next();
+			if(res < current) {
+				res = current;
 			}
 		}
 		
 		return res;
 	}
 
+	
 
-	@Override
-	Maximier rechercher(int v) {
-		Maximier res;
-		if(val == v) {
-			res = this;
-		} else {
-			res = g.rechercher(v);
-			if(res.estVide()) {
-				res = d.rechercher(v);
-			}
-		}
-		return res;
+	public static void main(String[] args) {
+	    Maximier arbre = new Noeud(15, new MaximierVide(), new MaximierVide());
+	    arbre = arbre.inserer(10);
+	    arbre = arbre.inserer(12);
+	    arbre.afficherInf();
+	    System.out.println("Plus grande valeur " + arbre.plusGrandeValeur());
+	    System.out.println("\n");
+	  
+	    
+	    arbre = arbre.supprimer(15);
+	    arbre.afficherInf();
+	    System.out.println("Plus grande valeur " + arbre.plusGrandeValeur());
+	    System.out.println("\n");
 	}
 
 }

@@ -1,11 +1,13 @@
-package Maximier;
+package TP3;
+
+import java.util.ArrayList;
 
 public class MaximierVide extends Maximier {
 
-	public MaximierVide() {
+	MaximierVide() {
 		
 	}
-
+	
 	@Override
 	int poids() {
 		return 0;
@@ -13,7 +15,7 @@ public class MaximierVide extends Maximier {
 
 	@Override
 	Maximier inserer(int v) {
-		 return new Noeud(v, new MaximierVide(), new MaximierVide());
+		return new Noeud(v, new MaximierVide(), new MaximierVide());
 	}
 
 	@Override
@@ -32,6 +34,21 @@ public class MaximierVide extends Maximier {
 	@Override
 	Maximier rechercher(int v) {
 		return this;
+	}
+
+	@Override
+	Integer getVal() {
+		return null;
+	}
+
+	@Override
+	ArrayList<Integer> valeursMaximier() {
+		return new ArrayList<Integer>();
+	}
+
+	@Override
+	Integer plusGrandeValeur() {
+		return -1;
 	}
 
 }

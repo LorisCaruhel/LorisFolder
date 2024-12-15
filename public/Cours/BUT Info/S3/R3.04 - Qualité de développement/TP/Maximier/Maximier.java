@@ -1,4 +1,6 @@
-package Maximier;
+package TP3;
+
+import java.util.ArrayList;
 
 public abstract class Maximier {
 	abstract int poids();
@@ -8,4 +10,7 @@ public abstract class Maximier {
 	abstract void afficherInf();
 	abstract Maximier supprimer(int v);
 	abstract Maximier rechercher(int v);
+	abstract Integer getVal();
+	abstract ArrayList<Integer> valeursMaximier();
+	abstract Integer plusGrandeValeur();
 }
