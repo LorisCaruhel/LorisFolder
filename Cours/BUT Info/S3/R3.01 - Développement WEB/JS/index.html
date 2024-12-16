@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="ageH1"></h1>
+    <!-- <h1 id="ageH1"></h1>
     <h1 id="majeur"></h1>
 
     <button id="plus">+</button>
@@ -13,62 +13,101 @@
     <p id="result"></p>
     <button id="moins">-</button>
 
-    <button id="moins10">-10</button>
+    <button id="moins10">-10</button> -->
+
+    <!-- <h1 class="urgent">1er titre</h1>
+    <h2>2eme titre</h2>
+    <h3 class="urgent">3eme titre</h3> -->
+
+    <!-- <img id="monImage" src="images/voitureJaune.png" alt="voitureJaune" width="250" height="150"> -->
+
+    <form action="" method="POST">
+        <input type="numer" id="age" name="age" max="100" />
+        <input type="submit" id="btnEnvoyer" value="Envoyer">
+        <p id="message"></p>
+      </form>
 
     <script>
-        let date = new Date();
-        let age = 18; // prompt("Entrez votre âge : ")
-        let anneeN = parseInt(date.getFullYear()) - age;
+        
 
-        const h1Age = document.getElementById("ageH1");
-        const majeur = document.getElementById("majeur");
 
-        if(age >= 18) {
-            h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
-            majeur.innerHTML += `Vous êtes majeur !`;
-        } else if(age > 0)  {
-            h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
-            majeur.innerHTML += `Vous n'êtes pas majeur...`;
-        } else {
-            majeur.innerHTML += `L'âge est bizarre là...`;
-        }
+        // let img = document.querySelector("img");
+        // function imageTransfert(event) {    
+        //     if(event.type === "mouseenter") {
+        //         img.src = "images/voitureJaune2.jpeg";
+        //     }  else {
+        //         img.src = "images/voitureJaune.png";
+        //     }
+        // }
+        // img.addEventListener("mouseenter", imageTransfert);
+        // img.addEventListener("mouseleave", imageTransfert);
 
-        let val1 = 10, val2 = 20;
-        console.log(val1 > val2 ? `La plus grande valeur est ${val2}` : `La plus petite est ${val1}`);
+        // let styleElt = document.createElement("style");
+        // let texte = document.createTextNode("h1 {color: blue;}");
+        // styleElt.appendChild(texte);
+        // document.head.appendChild(styleElt);
 
-        let dateJ = date.getDay();
-        console.log(dateJ == 0 || dateJ == 6 ? "Nous sommes le week end" : "Nous sommes en semaine");
 
-        switch(dateJ){
-            case 0:
-                console.log("Nous sommes Dimanche");
-                break;
-            case 1:
-                console.log("Nous sommes Lundi");
-                break;
-            case 2:
-                console.log("Nous sommes Mardi");
-                break;
-            case 3:
-                console.log("Nous sommes Mercredi");
-                break;
-            case 4:
-                console.log("Nous sommes Jeudi");
-                break;
-            case 5:
-                console.log("Nous sommes Vendredi");
-                break;
-            case 6:
-                console.log("Nous sommes Samedi");
-                break;
-            default:
-                console.log("Erreur");
-                break;
-        }
+        // let elemElts = document.getElementsByClassName("urgent");
 
-        function getRandomInt(min, max) {
-            return Math.random() * (max - min) + min;
-        }
+        // for(let elt of elemElts) {
+        //     elt.style.backgroundColor = "red";
+        // }
+
+
+        // let date = new Date();
+        // let age = 18; // prompt("Entrez votre âge : ")
+        // let anneeN = parseInt(date.getFullYear()) - age;
+
+        // const h1Age = document.getElementById("ageH1");
+        // const majeur = document.getElementById("majeur");
+
+        // if(age >= 18) {
+        //     h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
+        //     majeur.innerHTML += `Vous êtes majeur !`;
+        // } else if(age > 0)  {
+        //     h1Age.innerHTML += `Vous avez ${age} ans. Et vous êtes née en ${anneeN}.`;
+        //     majeur.innerHTML += `Vous n'êtes pas majeur...`;
+        // } else {
+        //     majeur.innerHTML += `L'âge est bizarre là...`;
+        // }
+
+        // let val1 = 10, val2 = 20;
+        // console.log(val1 > val2 ? `La plus grande valeur est ${val2}` : `La plus petite est ${val1}`);
+
+        // let dateJ = date.getDay();
+        // console.log(dateJ == 0 || dateJ == 6 ? "Nous sommes le week end" : "Nous sommes en semaine");
+
+        // switch(dateJ){
+        //     case 0:
+        //         console.log("Nous sommes Dimanche");
+        //         break;
+        //     case 1:
+        //         console.log("Nous sommes Lundi");
+        //         break;
+        //     case 2:
+        //         console.log("Nous sommes Mardi");
+        //         break;
+        //     case 3:
+        //         console.log("Nous sommes Mercredi");
+        //         break;
+        //     case 4:
+        //         console.log("Nous sommes Jeudi");
+        //         break;
+        //     case 5:
+        //         console.log("Nous sommes Vendredi");
+        //         break;
+        //     case 6:
+        //         console.log("Nous sommes Samedi");
+        //         break;
+        //     default:
+        //         console.log("Erreur");
+        //         break;
+        // }
+
+        // function getRandomInt(min, max) {
+        //     return Math.random() * (max - min) + min;
+        // }
 
 
         // let rep = 0;
@@ -102,18 +141,18 @@
         //     }
         // }
         
-        function calculerPerimetSurf(longueur, largeur=longueur) {
-            let surface = (longueur*largeur);
-            let perimetre = (longueur*2) + (largeur*2);
+        // function calculerPerimetSurf(longueur, largeur=longueur) {
+        //     let surface = (longueur*largeur);
+        //     let perimetre = (longueur*2) + (largeur*2);
 
-            return {perimetre, surface};
-        }
+        //     return {perimetre, surface};
+        // }
 
-        console.log(calculerPerimetSurf(4, 5)["surface"]);
-        console.log(calculerPerimetSurf(4, 5)["perimetre"]);
+        // console.log(calculerPerimetSurf(4, 5)["surface"]);
+        // console.log(calculerPerimetSurf(4, 5)["perimetre"]);
 
-        console.log(calculerPerimetSurf(5)["surface"]);
-        console.log(calculerPerimetSurf(5)["perimetre"]);
+        // console.log(calculerPerimetSurf(5)["surface"]);
+        // console.log(calculerPerimetSurf(5)["perimetre"]);
         
 
 
