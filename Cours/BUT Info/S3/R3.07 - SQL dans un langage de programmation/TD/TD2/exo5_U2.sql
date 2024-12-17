@@ -1,7 +1,7 @@
 START TRANSACTION ;
 
-LOCK TABLE enfant IN EXCLUSIVE MODE ; -- X
+LOCK TABLE enfantS.enfant IN EXCLUSIVE MODE NOWAIT ; -- X
 
-DROP TABLE enfant; -- AX
+DROP TABLE enfantS.enfant; -- AX
 
 ROLLBACK ;
