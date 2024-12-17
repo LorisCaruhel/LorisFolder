@@ -1,8 +1,8 @@
 START TRANSACTION;
 
-ALTER TABLE enfant ADD COLUMN nom VARCHAR(20); -- AX
+ALTER TABLE enfantS.enfant ADD COLUMN nom VARCHAR(20); -- AX
 
-UPDATE enfant SET nom = 'Dupont' WHERE nopers = 1; -- RX
+UPDATE enfantS.enfant SET nom = 'Dupont' WHERE nopers = 1; -- RX
 
 ROLLBACK;
 

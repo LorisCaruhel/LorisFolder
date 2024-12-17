@@ -1,8 +1,8 @@
 START TRANSACTION ;
 
-SELECT points FROM enfant WHERE nopers = 1 FOR UPDATE ; -- RS
+SELECT points FROM enfantS.enfant WHERE nopers = 1 FOR UPDATE ; -- RS
 
-UPDATE enfant SET points = points + 8 WHERE nopers = 1 ; -- RX
+UPDATE enfantS.enfant SET points = points + 8 WHERE nopers = 1 ; -- RX
 
 COMMIT ;
 

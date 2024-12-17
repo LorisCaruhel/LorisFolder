@@ -1,8 +1,8 @@
 START TRANSACTION ;
 
-UPDATE enfant SET points = points + 5 WHERE nopers = 1 ; -- RX
+UPDATE enfantS.enfant SET points = points + 5 WHERE nopers = 1 ; -- RX
 
-UPDATE enfant SET points = points + 9 WHERE nopers = 2 ; -- RX
+UPDATE enfantS.enfant SET points = points + 9 WHERE nopers = 2 ; -- RX
 
 COMMIT ;
 
