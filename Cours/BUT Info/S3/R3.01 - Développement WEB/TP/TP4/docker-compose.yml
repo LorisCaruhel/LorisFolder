@@ -1,7 +1,7 @@
 services:
    mariadb:
       # image: bigpapoo/r301-mariadb:11.0
-      image: r301-mariadb:11.0
+      image: bigpapoo/r301-mariadb:11.0
       ports:
          - 13306:3306
       # env_file:
@@ -18,7 +18,7 @@ services:
 
    phpmyadmin:
       # image: bigpapoo/r301-phpmyadmin:5.2.1
-      image: r301-phpmyadmin:5.2.1
+      image: bigpapoo/r301-phpmyadmin:5.2.1
       ports:
          - "8001:80"
       # env_file:
@@ -33,7 +33,7 @@ services:
 
    myapp:
       # image: bigpapoo/r301-php:8.2-apache
-      image: r301-php:8.2-apache
+      image: bigpapoo/r301-php:8.2-apache
       ports:
          - "8000:80"
       # env_file:
