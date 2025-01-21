@@ -273,3 +273,24 @@ WHERE espece = 'Chat';
 
 
 SELECT * FROM proprio_chats_de_même_race;
+
+
+
+
+
+CREATE OR REPLACE FUNCTION insert_emprunt() 
+returns trigger
+AS $$
+declare
+
+  
+  
+end;
+$$ language 'plpgsql';
+
+
+CREATE OR REPLACE TRIGGER tg_insert_nac
+BEFORE INSERT
+ON Emprunts
+FOR EACH ROW
+EXECUTE PROCEDURE insert_emprunt();
