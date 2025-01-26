@@ -29,11 +29,12 @@ int main(int argc, char *argv[]) {
             close(fd[0]);
             return 1;
         }
-        printf("%s\n", buf);
+        printf("Dans le fils : %s\n", buf);
     } else { // Pere 
         close(fd[0]);
 
         nb_wr = write(fd[1], argv[1], strlen(argv[1]));
+        printf("Je suis le père et j'ai écris le message.\n");
         if (nb_wr == 0) {
             perror("Erreur d'écriture du fichier");
             close(fd[1]);
