@@ -1,0 +1,12 @@
+<script>
+
+function plusPetitQue(x) {
+    return function (nombre) {
+        return nombre < x;
+    }
+}
+
+let plusPetitQue50 = plusPetitQue(50)
+console.log(plusPetitQue50(25));
+
+</script>
