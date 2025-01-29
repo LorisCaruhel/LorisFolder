@@ -1,0 +1,5 @@
+La liste des pays ayant l’Euro comme monnaie (le code de l’Euro est eur) = http://localhost:8081/v3.1/currency/eur
+La liste des pays parlant le français = http://localhost:8081/v2/lang/fr
+La liste des pays d’Asie = http://localhost:8081/v3.1/region/asia
+La liste des pays ayant Paris comme capitale = http://localhost:8081/v3.1/capital/paris
+
