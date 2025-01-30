@@ -16,7 +16,7 @@ $data = json_decode(file_get_contents($url));
       }
 </style>
 <h1>Rechercher un pays</h1>
-<form action="ex3.php" method="get" enctype="multipart/form-data">
+<form action="pays.php" method="get" enctype="multipart/form-data">
   <label for="name">Nom du pays</label>
   <input type="text" name="name">
 

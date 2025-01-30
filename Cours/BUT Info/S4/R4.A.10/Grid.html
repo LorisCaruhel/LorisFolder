@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Exercice Grid - 1</title>
+    <!-- Styles CSS -->
+    <style>
+        main {
+            display: grid;
+            grid-gap: 10px;
+            background-color: #2196F3;
+            padding: 10px;
+            grid: 8em minmax(30em, auto) 8em / 1fr 3fr 1fr;
+            grid-template-areas: "entete entete aside"
+                                 "nav article aside"
+                                 "footer footer footer";
+        }
+
+        header {
+            /* grid-column: 1/3; */
+            grid-area: entete;
+        }
+
+        aside {
+            /* grid-column: 3/4;
+            grid-row: 1/3; */
+            grid-area: aside;
+        }
+         
+        footer {
+            /* grid-column: 1/4; */
+            grid-area: footer;
+        }
+
+
+
+        header,
+        article,
+        nav,
+        aside,
+        footer {
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Grille simple</h1>
+    <main>
+        <header>Entête</header>
+        <aside>Aside</aside>
+        <nav>Nav</nav>
+        <article>Article</article>
+        <footer>Footer</footer>
+    </main>
+</body>
+
+</html>
