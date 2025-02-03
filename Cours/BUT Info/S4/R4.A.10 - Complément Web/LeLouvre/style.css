@@ -1,0 +1,150 @@
+body {
+    background-color: white;
+    font: 1em/1.2em arimo, arial, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+    min-width: 1000px;
+}
+
+h1 {
+    font: small-caps bold 4em roboto, arial, sans-serif;
+    text-align: center;
+}
+
+h2 {
+    font: small-caps bold 3em roboto, arial, sans-serif;
+    text-align: center;
+}
+
+h3 {
+    font: normal 2em roboto, arial, sans-serif;
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+    margin: 0 40px;
+}
+
+a:link,
+a:visited {
+    color: #a52a2a;
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    color: white;
+    background-color: #f08080;
+}
+
+body > header,
+main,
+main + aside {
+    border: 5px solid #a52a2a;
+    color: black;
+    background-color: #ffffe0;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+nav {
+    text-align: center;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    list-style-type: none;
+    text-align: center;
+    font-variant: small-caps;
+    background-color: #a52a2a;
+    border: 1px solid #a52a2a;
+    margin: 2px;
+}
+
+
+nav li a:link,
+nav li a:visited {
+    display: inline-block;
+    width: 8em;
+    color: #ffffe0;
+    text-decoration: none;
+    background-color: #a52a2a;
+}
+
+nav li:hover a {
+    color: #a52a2a;
+    background-color: #ffffe0;
+}
+
+.ligne {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+body > header > div {
+    flex-grow: 1;
+}
+
+article {
+    flex-basis: 50%;
+}
+
+figcaption {
+    text-align: right;
+    font: normal 0.8em/1.4em arimo, arial, sans-serif;
+    background-color: #a52a2a;
+    color: white;
+    padding: 2px 30px;
+}
+
+img {
+    flex-shrink: 0;
+    display: block;
+    margin: 2px auto;
+}
+
+#surrealisme + .ligne {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.peintre,
+address a {
+    background-color: #f5aeae;
+    padding: 0 5px;
+    color: #a52a2a;
+}
+
+article > figure > figcaption {
+    width: 250px;
+} 
+
+/*------------------------- Annexes -------------------------*/
+main + aside,
+footer p + p {
+    background-color: #a52a2a;
+    color: #ffffe0;
+    font: 0.8em arimo, arial, sans-serif;
+    padding: 4px 10px;
+    flex-shrink: 0;
+    flex-basis: 15em;
+}
+
+main + aside h3 {
+    color: #ffffe0;
+}
+
+	
+
