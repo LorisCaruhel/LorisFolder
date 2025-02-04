@@ -91,7 +91,7 @@ X, Y = np.meshgrid(np.linspace(-2, 3, 21), np.linspace(-2, 2, 21))
 Z = f2(X, Y)
 
 fig = plt.figure()
-ax = fig.add_subplot(50, projection='3d')
+ax = fig.add_subplot(111, projection='3d')
 ax.plot_surface(X, Y, Z, cmap='viridis') 
 plt.title("Surface 3D de f2(x, y)")
 plt.show()
