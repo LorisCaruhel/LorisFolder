@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+    <head>
+        <meta charset="utf-8" >
+        <title>Exercice 2 : Formes, Rectangles et Carrés</title>
+        <meta name="description" content="" >
+        <meta name="keywords" content="" >
+    </head>
+
+    <body>
+        <script>
+            // Données JSON décrivant des formes d'après les dimensions (en cm) de leurs côtés : valeur1 et valeur2 
+            const jsonData = `[
+              { "dimensions": { "valeur1": 10, "valeur2": 20 } },
+              { "dimensions": { "valeur1": 17, "valeur2": 17 } },
+              { "dimensions": { "valeur1": 5, "valeur2": 8 } },
+              { "dimensions": { "valeur1": 12, "valeur2": 12 } },
+              { "dimensions": { "valeur1": 5, "valeur2": 5 } },
+              { "dimensions": { "valeur1": 18, "valeur2": 25 } },
+              { "dimensions": { "valeur1": 10, "valeur2": 22 } },
+              { "dimensions": { "valeur1": 15, "valeur2": 15 } },
+              { "dimensions": { "valeur1": 5, "valeur2": 8 } },
+              { "dimensions": { "valeur1": 11, "valeur2": 12 } },
+              { "dimensions": { "valeur1": 19, "valeur2": 19 } },
+              { "dimensions": { "valeur1": 2, "valeur2": 2 } },
+              { "dimensions": { "valeur1": 17, "valeur2": 22 } }
+            ]`;
+
+
+            class Rectangle {
+                constructor (long, larg) {
+                    this._longueur = long;
+                    this._largeur = larg;
+                }
+
+                get longueur() {return this._longueur}
+                get largeur() {return this._largeur}
+                set longueur(long) {this._longueur = long}
+                set largeur(larg) {this._largeur = larg}
+
+                calcPerimetre() {
+                    return (this._largeur*2 + this._longueur*2);
+                }
+                
+                estCarre() {
+                    return (this._largeur === this._longueur) ? true : false;
+                }
+
+                toString() {
+                    return `La longueur de ce rectange est ${this._longueur} et la largeur est de ${this._largeur}`;
+                }
+
+                get aire() {return (this._longueur * this._largeur);}
+
+                static comparer(r1, r2) {
+                    return (r1.calcPerimetre() > r2.calcPerimetre() ? r1 : r2);
+                }
+            }
+
+            class Carre extends Rectangle {
+                constructor(long, larg) {
+                    super(long, larg);
+                }
+
+                toString() {
+                    return `La longueur des côtés de ce carré est ${this._longueur}`;
+                }
+            }
+
+            let rect1 = new Rectangle(50, 40);
+            console.log("Les propriétés du rectangle est " + rect1.longueur + " " + rect1.largeur);
+            console.log("Le périmètre est " + rect1.calcPerimetre());
+            console.log("Le rectange est un carré ? " + rect1.estCarre());
+            console.log(rect1.toString());
+
+            rect1.longueur = 50;
+            rect1.largeur = 50;
+
+            console.log("Le rectange est un carré ? " + rect1.estCarre());
+
+            let rect2 = new Rectangle(60, 30);
+            console.log("Le rectangle le plus grand est " + Rectangle.comparer(rect1, rect2));
+            console.log("Aire de rect1 " + rect1.aire);
+
+            let car1 = new Carre(30, 30);
+            console.log("Les propriétés du carré est " + car1.longueur + " " + car1.largeur);
+            console.log("Le périmètre est " + car1.calcPerimetre());
+            console.log("Le carré est un carré ? " + car1.estCarre());
+            console.log(car1.toString());
+
+            let dataTab = JSON.parse(jsonData);
+            let tabForm = [];
+            for(let forme in dataTab) {
+                currentLong = dataTab[forme].dimensions.valeur1;
+                currentLarg = dataTab[forme].dimensions.valeur2;
+
+                if(currentLong === currentLarg) {
+                    tabForm[forme] = (new Carre(currentLong, currentLarg))
+                } else {
+                    tabForm[forme] = (new Rectangle(currentLong, currentLarg))
+                }
+            }
+
+            aire = -1;
+            tabForm.forEach(element => {
+                if(aire < element.aire) {
+                    aire = element.aire;
+                    plusGrand = new Rectangle(element.longueur, element.largeur);
+                }
+            });
+            console.log(plusGrand);
+
+            let tabCarre = tabForm.filter(element => {return element instanceof Carre});
+            console.log(tabCarre);
+
+            let plusGrandCarre = tabCarre.reduce((max, carre) => {
+                return (carre.aire > max.aire) ? carre : max;
+            }, tabCarre[0]);
+            console.log(plusGrandCarre);
+        </script>
+    </body>
+</html>

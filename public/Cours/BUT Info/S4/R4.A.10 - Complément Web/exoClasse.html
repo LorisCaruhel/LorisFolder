@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var unePersonne = {
+        prenom: "John",
+        nom: "Deuff",
+        profession: "Humoriste",
+        ouvrages: { livre1: "L'oeuf au riz", livre2: "Quoi de n'oeuf ?"}
+    };
+
+    console.log(Object.values(unePersonne)[0]);
+    console.log(Object.keys(unePersonne).length);
+    console.log(unePersonne);
+    console.log(unePersonne.ouvrages);
+    console.log(unePersonne.profession);
+    console.log("Les intitulés des propriétés une à une");
+    for(let props in unePersonne) {
+        console.log(props);
+    }
+    console.log("Les valeurs des propriétés une à une");
+    for(let props in unePersonne) {
+        console.log(unePersonne[props]);
+    }
+    
+</script>
+</html>
