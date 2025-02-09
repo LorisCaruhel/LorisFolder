@@ -21,11 +21,6 @@
 	
 		file_put_contents($fichier, json_encode($articles, JSON_PRETTY_PRINT));
 	}
-
-	function put($articles) {
-		$fichier = __DIR__ . '/data.json';
-		file_put_contents($fichier, json_encode($articles, JSON_PRETTY_PRINT));
-	}
 	
 
 	$app->get('/', function($req, $resp) {
@@ -64,39 +59,75 @@
 		$params = $req->getParsedBody();
 		global $articles;
 	
-		$nbArticles = count($articles) - 1;
-		$idTrouver = null;
-	
-		// Rechercher l'article
-		while ($nbArticles >= 0) {
-			if ($articles[$nbArticles]['id'] == $params['id']) {
-				$idTrouver = $nbArticles;
-				break;
-			}
-			$nbArticles--;
+		if (empty($params['id'])) {
+			return $resp->withStatus(400);
 		}
 	
-		// Changer les champs qu'il faut
-		if ($idTrouver !== null) {
-			if (!empty($params['nom'])) {
-				$articles[$idTrouver]['nom'] = $params['nom'];
-			}
-			if (!empty($params['qte'])) {
-				$articles[$idTrouver]['qte'] = $params['qte'];
-			}
-			if (!empty($params['prix'])) {
-				$articles[$idTrouver]['prix'] = $params['prix'];
-			}
+		$id = $params['id'] - 1;
 	
-			put($articles);
-			// Tout ce passe bien 
-			return $resp->withStatus(200);
+		if (!isset($articles[$id])) {
+			return $resp->withStatus(404);
 		}
 	
-		// Pas d'article trouvé
-		return $resp->withStatus(404)->write('Article non trouvé');
+		if (!empty($params['nom'])) {
+			$articles[$id]['nom'] = $params['nom'];
+		}
+		if (!empty($params['qte'])) {
+			$articles[$id]['qte'] = (int) $params['qte'];
+		}
+		if (!empty($params['prix'])) {
+			$articles[$id]['prix'] = (float) $params['prix'];
+		}
+	
+		file_put_contents(__DIR__ . '/data.json', json_encode($articles, JSON_PRETTY_PRINT));
+	
+		return $resp->withStatus(200);
+	});
+
+
+	$app->patch('/articles', function ($req, $resp, $args) {
+		$params = $req->getParsedBody();
+		global $articles;
+	
+		if (empty($params['id'])) {
+			return $resp->withStatus(400);
+		}
+	
+		$id = $params['id'] - 1;
+	
+		if (!isset($articles[$id])) {
+			return $resp->withStatus(404);
+		}
+	
+		if (!empty($params['nom'])) {
+			$articles[$id]['nom'] = $params['nom'];
+		}
+		if (!empty($params['qte'])) {
+			$articles[$id]['qte'] = (int) $params['qte'];
+		}
+		if (!empty($params['prix'])) {
+			$articles[$id]['prix'] = (float) $params['prix'];
+		}
+	
+		file_put_contents(__DIR__ . '/data.json', json_encode($articles, JSON_PRETTY_PRINT));
+	
+		return $resp->withStatus(200);
 	});
 	
+	$app->delete('/articles/{id}', function ($req, $resp, $args) {
+		global $articles;
+		$id = $args['id'] - 1;
+	
+		if (!isset($articles[$id])) {
+			return $resp->withStatus(404);
+		}
+	
+		unset($articles[$id]);
+	
+		file_put_contents(__DIR__ . '/data.json', json_encode($articles, JSON_PRETTY_PRINT));
+	
+		return $resp->withStatus(200);
+	});
 
 	// Fix "bug" (?) avec PUT vide (body non parsé)
 	$app->addBodyParsingMiddleware();
