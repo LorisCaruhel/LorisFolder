@@ -22,43 +22,76 @@ $data = json_decode(file_get_contents($url));
 <head>
   <meta charset="utf-8">
   <title>Pays recherche</title>
-  <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
 
 <style>
-      table,th,td {
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    table,th,td {
         padding: 10px;
         border: 1px solid black;
         border-collapse: collapse;
-      }
-      .drapeau{
+    }
+    td {
+        width: 200px;
+        text-align: center;
+    }
+
+    .drapeau{
         width: 75px;
         height: 50px;
-      }
-      input {
+    }
+    input {
         width: 300px;
-      }
-      .erreur {
+    }
+    .erreur {
         color:red;
-      }
-      .pagination {
+    }
+    .pagination {
         display: flex;
         margin: 10px;
-      }
-      .pagination a {
+    }
+    .pagination a {
         text-decoration: none;
         color: black;
-      }
-      form {
-        display: flex;
+    }
+    form {
+        display: flex;  
         flex-direction: column;
-        margin: 10px;
+        margin: 30px;
         padding: 10px;
-      }
-      button {
+    }
+    form label, form input {
+        margin-top: 10px;
+    }
+    button {
         width: 100px;
         height: 30px;
-      }
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color:rgb(97, 173, 255);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color:rgb(0, 111, 230);
+    }
+
+    .btn.disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 </style>
 </head>
 <body>
@@ -77,27 +110,28 @@ $data = json_decode(file_get_contents($url));
     </form>
     <div class="pagination">
     <?php
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-    $previousPage = max(1, $page - 1);
-    $nextPage = $page + 1;
-    
-    // En prendre 10.
-    $data = array_slice($data, ($_GET['page']*10)-10, 10);
+        // Prend le numéro de page dans l'URL si elle existe et si c'est un int et sinon 1 par défaut.
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 
-    $parametre = $_GET;
-    $parametre['page'] = $previousPage;
-    $urlAvant = "http://localhost:8888/pays.php?" . http_build_query($parametre);
+        // Page précédente pour pas quelle soit en dessous de 1
+        $previousPage = max(1, $page - 1);
+        $nextPage = $page + 1;
 
-    $parametre['page'] = $nextPage;
-    $urlApres = "http://localhost:8888/pays.php?" . http_build_query($parametre);
-    ?>
+        // Découpe le tableau $data pour ne récupérer que 10
+        $data = array_slice($data, ($page * 10) - 10, 10);
+        $parametre = $_GET;
 
-    <button <?php if ($page <= 1) echo 'disabled'; ?>>
-        <a href="<?php echo $urlAvant; ?>">Précédente</a>
-    </button>
-    <button <?php if (count($data) < 10) echo 'disabled'; ?>>
-        <a href="<?php echo $urlApres; ?>">Suivante</a>
-    </button>
+        $parametre['page'] = $previousPage;
+        $urlAvant = "http://localhost:8888/pays.php?" . http_build_query($parametre);
+
+        $parametre['page'] = $nextPage;
+        $urlApres = "http://localhost:8888/pays.php?" . http_build_query($parametre);
+        ?>
+
+
+        <a href="<?php echo $urlAvant; ?>" class="btn <?php if ($page <= 1) echo 'disabled'; ?>">Précédente</a>
+        <a href="<?php echo $urlApres; ?>" class="btn <?php if (count($data) < 10) echo 'disabled'; ?>">Suivante</a>
+
 
     </div>
     <table>
@@ -105,6 +139,7 @@ $data = json_decode(file_get_contents($url));
             <th>Nom du pays</th>
             <th>Code pays</th>
             <th>Capitale</th>
+            <th>Drapeau</th>
         </thead>
         <tbody>
             <?php
