@@ -1,0 +1,7 @@
+docker container run -e MYSQL_USER=toto -e MYSQL_PASSWORD=lulu -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=td3 --network rezo_td3_web -d --rm --name td3_db -v td3_web:/var/lib/mysql r408-mysql:5.7
+
+docker container run --rm --network rezo_td3_pma -p 8060:80 -d --name td3_pma -e PMA_HOST=td3_db r408-phpmyadmin:5.2
+
+docker container run -v vol_td3_web:/var/www/html -p 8050:80 --network rezo_td3_pma --name td3_web -d --rm r408-php:8.2-apache
+
+docker container run -v vol_td3_web:/var/www/html -p 8050:80 --network rezo_td3_pma --name td3_web --rm -ti r408-php:8.2-apache-pdo
