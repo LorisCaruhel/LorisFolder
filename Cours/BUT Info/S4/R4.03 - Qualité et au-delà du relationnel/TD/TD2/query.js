@@ -47,8 +47,7 @@ db.game.find({
         }, 
         { id: { $gt: 48000 } }
     ]
-})
-
+}) 
 
 // 9. Games titles with a id less than 1000.
 db.game.find(
@@ -70,7 +69,6 @@ db.game.aggregate([
     }
 ])
 
-
 // 12. Number of games per year with at least 3 games.*
 db.game.aggregate([ 
     { 
@@ -88,7 +86,10 @@ db.game.aggregate([
 
 
 // 13. Games which title ends by 2.*
-
+db.game.find({ title: { $regex: "2$", $options: "i" } })
+// Le "options:1" sert à rendre le regex insensible à la casse, mais dans ce cas qui ne précise aucun jeu, il ne sert à rien.
+// Si on mettait "Call of duty 2$" avec le "option:1" les titres de jeux tout en maj, avec d'autre maj que le C serrais trouvé mais sans 
+// le "options:1" il n'y aurait que les titres qui correspond exactement.
 
 
 // 14. Games which id is between 1000 and 2000.
