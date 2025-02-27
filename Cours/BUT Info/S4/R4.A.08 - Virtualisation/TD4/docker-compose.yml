@@ -1,0 +1,40 @@
+services:
+   web:
+      image: bigpapoo/r408-php:8.2-apache-pdo
+      build: .
+      container_name: biblio_web
+      networks: 
+         - rezo_biblio_web
+      ports: 
+         - "5555:80"
+      volumes: 
+         - vol_biblio_web:/var/www/html
+   db:
+      image: bigpapoo/r408-mysql:5.7-miniproj
+      container_name: biblio_db
+      build: ./dockerfile2/
+      networks: 
+         - rezo_biblio_pma
+         - rezo_biblio_web
+      environment: 
+         - MYSQL_USER=${DBUSER}
+         - MYSQL_PASSWORD=${DBPWD}
+         - MYSQL_ROOT_PASSWORD=${ROOTP}
+         - MYSQL_DATABASE=${DB}
+      volumes: 
+         - vol_biblio_db:/var/lib/mysql
+   pma:
+      image: bigpapoo/r408-phpmyadmin:5.2
+      container_name: biblio_pma
+      networks: 
+         - rezo_biblio_pma
+      ports: 
+         - "8060:80"
+      environment:
+         - PMA_HOST=${PMA_HOST}
+networks:
+   rezo_biblio_pma:
+   rezo_biblio_web:
+volumes:
+   vol_biblio_web:
+   vol_biblio_db:
