@@ -5,7 +5,7 @@ services:
    volumes:
       vol_td3_web
    web:
-      image: r480-php:8.2-apache
+      image: bigpapoo/r480-php:8.2-apache
       build: .
       container_name: td3_web
       networks: 
@@ -15,7 +15,7 @@ services:
       volumes: 
          - vol_td3_web: /var/www/html
    db:
-      image: r408-mysql:5.7
+      image: bigpapoo/r408-mysql:5.7
       container_name: td3_db
       networks: 
          - rezo_td3_pma
@@ -26,7 +26,7 @@ services:
          - MYSQL_ROOT_PASSWORD=${ROOTP}
          - MYSQL_DATABASE=${DB}
    pma:
-      image: r408-phpmyadmin:5.2
+      image: bigpapoo/r408-phpmyadmin:5.2
       container_name: td3_pma
       networks: 
          - rezo_td3_pma
