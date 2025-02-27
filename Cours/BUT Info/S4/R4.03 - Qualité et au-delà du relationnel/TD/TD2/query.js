@@ -102,3 +102,25 @@ db.game.find(
     }
 )
 
+
+// 1. Use DB TP
+use TP
+
+// 2. Insert in collection people 2 documents (id, name, age): (1, ’Alice’, 20), (1, ’Bob’, 35)
+db.people.insertMany([
+    { id: 1, name: "Alice", age: 20 },
+    { id: 2, name: "Bob", age: 35 }
+])
+
+
+// 3. Display all databases
+show databases
+
+
+// 4. Display the current DB
+db
+
+
+// 5. Delete collection people
+db.people.drop()
+
