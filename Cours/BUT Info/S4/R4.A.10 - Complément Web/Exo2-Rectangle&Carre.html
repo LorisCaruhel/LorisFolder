@@ -101,15 +101,21 @@
                     tabForm[forme] = (new Rectangle(currentLong, currentLarg))
                 }
             }
+            console.log(tabForm);
 
             aire = -1;
             tabForm.forEach(element => {
                 if(aire < element.aire) {
                     aire = element.aire;
-                    plusGrand = new Rectangle(element.longueur, element.largeur);
+
+                    if(element._largeur === element._longueur) {
+                        plusGrand = (new Carre(element._longueur, element._largeur))
+                    } else {
+                        plusGrand = (new Rectangle(element._longueur, element._largeur))
+                    }
                 }
             });
-            console.log(plusGrand);
+            console.log("Le plus grand : ", plusGrand);
 
             let tabCarre = tabForm.filter(element => {return element instanceof Carre});
             console.log(tabCarre);
@@ -117,7 +123,7 @@
             let plusGrandCarre = tabCarre.reduce((max, carre) => {
                 return (carre.aire > max.aire) ? carre : max;
             }, tabCarre[0]);
-            console.log(plusGrandCarre);
+            console.log("Plus grand carré :", plusGrandCarre);
         </script>
     </body>
 </html>
