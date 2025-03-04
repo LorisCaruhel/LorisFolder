@@ -1,3 +1,3 @@
-FROM bigpapoo/r408-php:8.2-apache
+FROM r408-php:8.2-apache
 RUN docker-php-ext-install pdo pdo_mysql
 COPY index.php /var/www/html
