@@ -1,6 +1,6 @@
 <?php
 $serveur = "biblio_db";
-$utilisateur = "toto";
+$utilisateur = "root";
 $motDePasse = "admin";
 $baseDeDonnees = "biblio";
 
@@ -8,7 +8,7 @@ try {
     $conn = new PDO("mysql:host=$serveur;dbname=$baseDeDonnees;charset=utf8", $utilisateur, $motDePasse);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT id, nom, prix, tva FROM articles";
+    $sql = "SELECT * FROM livres";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
@@ -19,7 +19,8 @@ try {
     echo "Erreur de connexion : " . $e->getMessage();
 }
 
-$conn = null;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,9 +53,6 @@ $conn = null;
     </style>
 </head>
 <body>
-    <?php
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    ?>
     <table>
         <thead>
             <th>id</th>
@@ -65,6 +63,7 @@ $conn = null;
         </thead>
         <tbody>
         <?php
+        $rows = $stmt->fetchAll();
         foreach($rows as $key => $row) {
             ?>
             <tr>

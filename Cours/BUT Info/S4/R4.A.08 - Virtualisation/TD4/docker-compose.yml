@@ -1,6 +1,6 @@
 services:
    web:
-      image: bigpapoo/r408-php:8.2-apache-pdo
+      image: r408-php:8.2-apache-pdo
       build: .
       container_name: biblio_web
       networks: 
@@ -10,7 +10,7 @@ services:
       volumes: 
          - vol_biblio_web:/var/www/html
    db:
-      image: bigpapoo/r408-mysql:5.7-miniproj
+      image: r408-mysql:5.7-miniproj
       container_name: biblio_db
       build: ./dockerfile2/
       networks: 
@@ -24,7 +24,7 @@ services:
       volumes: 
          - vol_biblio_db:/var/lib/mysql
    pma:
-      image: bigpapoo/r408-phpmyadmin:5.2
+      image: r408-phpmyadmin:5.2
       container_name: biblio_pma
       networks: 
          - rezo_biblio_pma
