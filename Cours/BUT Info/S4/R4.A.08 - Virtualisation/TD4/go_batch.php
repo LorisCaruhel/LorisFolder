@@ -29,43 +29,62 @@ foreach($data as $key => $command) {
 }
 
 foreach($commandes as $key => $arg) {
-    if($arg[1] === "IN") {
-        $sql = "UPDATE biblio.livres SET pret = pret + {$arg[4]} WHERE id = {$arg[0]}";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        echo "Livre bien prêté\n";
-    } else if($arg[1] === "OUT") {
-        $sql = "SELECT * FROM livres WHERE id = {$arg[0]}";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($rows['pret'] > 0) {
-            $sql = "UPDATE biblio.livres SET pret = pret - {$arg[4]} WHERE id = {$arg[0]}";
+    $idL = $arg[0];
+    $action = $arg[1];
+    $nomL = $arg[2];
+    $auteurL = $arg[3];
+    $totalL = $arg[4];
+
+    switch($action) {
+        case "IN":
+            $sql = "UPDATE biblio.livres SET pret = pret + :quantite WHERE id = :id";
             $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            echo "Livre bien revenu\n";
-        } else {
-            echo "Livre veut revenir mais aucun prêt en cours\n";
-        }
-    } else if($arg[1] === "ADD") {
-        $sql = "INSERT INTO biblio.livres(nom, auteur, total, pret) VALUES ($arg[2], $arg[3], $arg[4], 0)";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        echo "Livre bien inséré";
-    } else if($arg[1] === "DEL") {
-        $sql = "SELECT * FROM livres WHERE id = {$arg[0]}";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute(['quantite' => $totalL, 'id' => $idL]);
+            echo "Livre bien prêté : ".$nomL."\n";
+            break;
 
-        if($rows['total'] > $arg[4] && $arg[4] > 0) {
-            
-        } else if($arg[4] < 0) {
+        case "OUT":
+            $sql = "SELECT * FROM livres WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(['id' => $idL]);
+            $rows = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        } else {
+            if($rows['pret'] > 0) {
+                $sql = "UPDATE biblio.livres SET pret = pret - :quantite WHERE id = :id";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(['quantite' => $totalL, 'id' => $idL]);
+                echo "Livre bien revenu : ".$nomL."\n";
+            } else {
+                echo "Livre veut revenir mais aucun prêt en cours : ".$nomL."\n";
+            }
+            break;
 
-        }
-    } else {
-        echo "Erreur sur la commande";
+        case "ADD":
+            $sql = "INSERT INTO biblio.livres(nom, auteur, total, pret) VALUES (:nom,:auteur,:total, 0)";
+            $stmt = $conn->prepare($sql);   
+            $stmt->execute(['nom' => $nomL, 'auteur' => $auteurL, 'total' => $totalL]);
+            echo "Livre bien inséré : ".$nomL."\n";
+            break;
+
+        case "DEL":
+            $sql = "SELECT * FROM livres WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(['id' => $idL]);
+            $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if($rows['total'] > 0 && $rows['total'] >= $totalL) {
+                echo "Suppression effectué : ".$nomL."\n";
+                $sql = "DELETE FROM biblio.livres WHERE id = :id";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(['id' => $idL]);
+                $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+            }else {
+                echo "Erreur sur la quantité à supprimer : ".$nomL."\n";
+            }
+            break;
+
+        default:
+            echo "Erreur sur la commande : ".$nomL."\n";
+            break;
     }
 }
