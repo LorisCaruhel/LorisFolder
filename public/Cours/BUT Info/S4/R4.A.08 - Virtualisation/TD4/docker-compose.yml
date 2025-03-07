@@ -14,7 +14,7 @@ services:
       container_name: biblio_db
       build: ./dockerfile2/
       networks: 
-         - rezo_biblio_pma
+         - rezo_biblio_db
          - rezo_biblio_web
       environment: 
          - MYSQL_USER=${DBUSER}
@@ -27,13 +27,25 @@ services:
       image: r408-phpmyadmin:5.2
       container_name: biblio_pma
       networks: 
-         - rezo_biblio_pma
+         - rezo_biblio_db
       ports: 
          - "8060:80"
       environment:
          - PMA_HOST=${PMA_HOST}
+   ftp:
+      image: r408-pure-ftpd:1.0
+      container_name: biblio_ftp
+      ports: 
+         - "9021:21"
+         - "30000-30009:30000-30009"
+      environment:
+         - FTP_USER_NAME=${USER_FTP_NAME}
+         - FTP_USER_PASS=${USERP}
+         - FTP_USER_HOME=${USERHOME}
+      networks:
+         - rezo_biblio_db
 networks:
-   rezo_biblio_pma:
+   rezo_biblio_db:
    rezo_biblio_web:
 volumes:
    vol_biblio_web:
