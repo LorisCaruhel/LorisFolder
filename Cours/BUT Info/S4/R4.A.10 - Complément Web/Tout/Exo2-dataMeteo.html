@@ -1,0 +1,92 @@
+<html>
+    <body>
+        <div id="table-container"></div>
+    </body>
+</html>
+<script>
+
+    // Tableau de relevés météorologiques mondiaux
+    // Pays, Capitale, Température minimale en °C, Température maximale en °C, Pluviométrie minimale en mm, Pluviométrie maximale en mm
+    let dataMeteo = [
+                    ['Grande-Bretagne',  'Edimbourg',  -12,  11,  500,  100000 ],
+                    ['France',  'Paris',  -5,  32,  600,  800 ],
+                    ['Ukraine',  'Kyiv',  -18,  34,  200,  1000 ],
+                    ['Egypte',  'Le Caire',  0,  43,  20,  100 ],
+                    ['Afrique du Sud',  'Pretoria',  0,  35,  100,  600 ],
+                    ['Inde',  'New Delhi',  0,  40,  500,  1200 ],
+                    ['Japon',  'Tokyo',  -1,  30,  1000,  2000 ],
+                    ['Australie',  'Canberra',  -10,  39,  200,  600 ],   
+                    ['Canada',  'Ottawa',  -20,  31,  200,  800 ],
+                    ['États-Unis',  'Washington D.C.',  -5,  35,  300,  1200 ],
+                    ['Brésil',  'Brasilia',  -15,  40,  800,  1600 ]
+                ];
+    
+    dataMeteo.shift();
+    dataMeteo.unshift(['Angleterre', 'Londres', -8, 30, 500, 1800]);
+    
+    var infZero = dataMeteo.every(
+        (data) => {
+            return data[2] <= 0;
+        }
+    )
+    
+    var interVal = dataMeteo.every(
+        (data) => {
+            return (data[3] >= 0 && data[3] <= 3000) && (data[4] >= 0 && data[4] <= 3000);
+        }
+    )
+    
+    var dataMeteoRectif = dataMeteo.map((data) => {
+            let newData = [...data];
+            newData[3] += 2;
+            return newData;
+        }
+    );
+    
+    var paysTMax = [];
+    dataMeteo.map((data) => {
+        if(data[3] >= 40) {
+            paysTMax.push(data);
+        }
+    });
+    
+    console.log(dataMeteo);
+    console.log("Température inférieur à 0 : " + infZero);
+    console.log("Valeur pluviométrique comprise entre 0 et 3000 : " + interVal);
+    
+    console.log("Nouveau tableau dataMeteoRectif : ");
+    console.log(dataMeteoRectif);
+    
+    console.log("Nouveau tableau paysTMax : ");
+    console.log(paysTMax);
+    
+    let table = document.createElement('table');
+    let tbody = document.createElement('tbody');
+    let thead = document.createElement('thead');
+    
+    let head = ['Pays', 'Ville', 'Temp min', 'Temp max', 'Pluie min', 'Pluie max'];
+    
+    head.forEach(titre => {
+        let th = document.createElement('th');
+        th.textContent = titre;
+        thead.appendChild(th);
+    });
+    
+    // Corps du tableau (tbody)
+    dataMeteo.forEach(ligne => {
+        let trBody = document.createElement('tr');
+        ligne.forEach(cell => {
+            let td = document.createElement('td');
+            td.textContent = cell;
+            trBody.appendChild(td);
+        });
+        tbody.appendChild(trBody);
+    });
+    
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    console.log(table);
+    
+    let tableau = document.getElementById('table-container');
+    tableau.appendChild(table);
+</script>

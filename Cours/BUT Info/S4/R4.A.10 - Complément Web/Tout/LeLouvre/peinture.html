@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Les peintres à l'honneur au Louvre</title>
+    <!-- Lien : police Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
+    <!-- Lien : feuille de style -->
+    <link href="style.css" rel="stylesheet" type="text/css" >
+    <style>
+        #impressionnisme:target h3, #fauvisme:target h3, h3#surrealisme:target {
+            color: #ffffe0;
+            background-color: red;
+        }
+
+        aside article:hover p cite {
+            background-color: white;
+            color: red;
+        }
+
+        h3 {
+            transition: letter-spacing 0.5s ease-in-out 0.1s;
+        }
+
+        h3:hover {
+            letter-spacing: 5px;
+        }
+
+        .figdroite img {
+            transition: transform 0.5s ease-in-out 0.1s;
+        }
+
+        .figdroite:nth-child(1) img:hover {
+            transform: rotate(90deg);
+        }
+
+        @keyframes rebondir {
+            0% {
+                scale: 2;
+            }
+        }
+
+        #fauvisme:hover img {
+            animation: rebondir 1s 0.5s ;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Début du sommaire -->
+    <header class="ligne">
+        <div class="col">
+            <h1>Le Louvre</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Le Louvre</a></li>
+                    <li><a href="#impressionnisme">Impressionnisme</a></li>
+                    <li><a href="#fauvisme">Fauvisme</a>
+                    <li><a href="#surrealisme">Surréalisme</a></li>
+                </ul>
+            </nav>
+        </div>
+        <figure>
+            <img src="images/lelouvrenb.jpg" alt="La pyramide du Louvre" title="La pyramide du Louvre" />
+        </figure>        
+    </header>
+    <!-- Fin de sommaire -->
+
+    <div class="col">
+        <!--  Début du main  -->
+        <main class="col">
+            <!-- Début de l'article -->
+            <section class="ligne">
+                <article id="impressionnisme">
+                    <h3>Impressionnisme</h3>
+                    <div>
+                        <figure>
+                            <img src="images/impressionnisme.jpg" alt="Impression, soleil levant de Monet" title="Impression, soleil levant" width="374" height="294" />
+                            <figcaption> Impression, soleil levant<br />
+                                Claude Monet - 1872 </figcaption>
+                        </figure>
+                    </div>
+                </article>
+                <article id="fauvisme">
+                    <h3>Fauvisme</h3>
+                    <div>
+                        <figure>
+                            <img src="images/fauvisme.jpg" alt="Big Ben" title="Big Ben" width="374" height="294" />
+                            <figcaption> Big Ben<br />
+                                André Derain - 1905 </figcaption>
+                        </figure>
+                    </div>
+                </article>
+            </section>
+            <section>
+                <h3 id="surrealisme">Surréalisme</h3>
+                <div class="ligne">
+                    <figure class="figdroite">
+                        <img src="images/surrealisme1.jpg" alt="La trahison des images de Magritte" title="La trahison des images" width="265" height="184" />
+                        <figcaption> La trahison des images <br /> R. Magritte </figcaption>
+                    </figure>
+                    <figure class="figdroite">
+                        <img src="images/surrealisme3.jpg" alt="Danseuse II" title="Danseuse II" width="200" height="286" />
+                        <figcaption> Danseuse II <br /> J. Mir&oacute; </figcaption>
+                    </figure>
+                    <figure class="figdroite">
+                        <img src="images/surrealisme4.jpg" alt="Jacqueline et les fleurs" title="Jacqueline et les fleurs" width="227" height="285" />
+                        <figcaption> Jacqueline et les fleurs <br /> P. Picasso </figcaption>
+                    </figure>
+                    <figure class="figdroite">
+                        <img src="images/surrealisme2.jpg" alt="The elephants de Dali" title="The elephants" width="265" height="198" />
+                        <figcaption> The elephants <br /> S. Dali </figcaption>
+                    </figure>
+
+                </div>
+            </section>
+        </main>
+        <!-- Fin de main -->
+        <!-- Début de l'à côté -->
+        <aside class="ligne">
+            <article>
+                <h3 id="origine">Origine</h3>
+                <p>Le 15 Avril 1874, Edgar Germain Hilaire Degas organisa une exposition
+                    au cours de laquelle le tableau <cite>Impression Soleil Levant</cite> de <span class="peintre"> Claude Monet</span> y fut exposée. Louis Leroy, critique d'art dans la revue <em>Le Charivari</em>, écrivit dans son article de presse du 25 avril 1874
+                    sur l'ensemble de l'exposition, <q>Quels étaient ces gens qui se permettaient d'avoir des impressions</q>, il les avait alors qualifiés
+                    d'impressionnistes. L'impressionnisme était né, il appartient
+                    désormais au patrimoine mondial. </p>
+            </article>
+            <hr />
+            <article>
+                <h3 id="exentricite">Excentricité</h3>
+                <p>Il fut demandé à Dalí de réaliser une œuvre sur une vitrine d'un
+                    magasin new-yorkais afin de lancer une nouvelle marque de parfum
+                    appelée <cite>Fracas</cite>. Le jour du lancement, <span class="peintre">Dalí</span>
+                    n'avait toujours pas réalisé l’œuvre demandée. À son arrivée, il lança un pavé dans la
+                    vitrine du magasin.</p>
+            </article>
+        </aside> <!-- Fin de l'à côté -->
+    </div>
+</body>
+
+</html>

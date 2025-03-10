@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice JQuery et le DOM - Accès et Modification</title>
+    <style>
+        h1 {
+            margin-left: auto;
+            margin-right: auto;
+            
+        }
+        .cv {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            color: purple;
+        }
+        .bloc {
+            color: green;
+        }
+    </style>
+    <!-- Inclure la bibliothèque jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body> 
+    <h1>CV</h1>
+    <article id="un" class="bloc"> 
+        <h2>Diplômes</h2>
+        <p>Bac S</p>
+        <p>BUT</p>
+    </article>
+    <article id="deux" class="bloc"> 
+        <h2>Langages</h2>
+        <p>CSS</p>
+        <p>SCSS</p>
+    </article>
+    <footer>
+        <address><a href="mailto:harry.cover@etudiant.univ-rennes.fr">Webmaster</a></address>
+    </footer>
+    <script>
+        // Code jQuery
+        let blocs = $(".bloc");
+        console.log("blocs :", blocs);
+
+        let titres = $("#un > :header");
+        console.log("titres :", titres);
+
+        let elemContientCSS = $("p:contains('CSS')");
+        console.log("elemContientCSS :", elemContientCSS);
+
+        let dernierElem = $("#un > p:last");
+        console.log("dernierElem :", dernierElem);
+
+        let enfantsDeux = $("#deux > :not(p)").children();
+        console.log("enfantsDeux :", enfantsDeux);
+
+        let frereUn = $("#un").siblings().css("color", "red");
+        let enfantsDeux2 = $("#deux").children().remove();
+        let newP1 = $("#deux").append("<p>JS</p><p>JQuery</p>");
+        let blocBloc = $(".bloc")
+        blocBloc.removeClass("bloc");
+        blocBloc.addClass("cv");
+    </script>
+</body>
+</html>

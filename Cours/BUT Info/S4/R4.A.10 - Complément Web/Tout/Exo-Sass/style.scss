@@ -1,0 +1,130 @@
+@use "sass:color";
+
+a {
+    &:link {
+        background-color: red;
+        color: white;
+    }
+    
+    &:visited {
+        background-color: aqua;
+        color: black;
+    }
+    
+    &:hover {
+        background-color: yellow;
+        color: white;
+    }
+}
+
+$mobile: "screen and (max-width: 960px)";
+$tablette: "screen and (max-width: 960px)";
+h1 {
+    font: {
+        size: 3em;
+        weight: bold;
+    }
+
+    @media #{$mobile} {
+        font: {
+            size: 2em;
+            weight: normal;
+        }
+    }
+
+    @media #{$tablette} {
+        font: {
+            size: 2em;
+            weight: normal;
+        }
+    }
+}
+
+$GdeMg: 40px, 20px;
+$PteMg: 10px, 5px;
+$Mg: join($GdeMg, $PteMg);
+$index20px: index($Mg, 20px);
+$newMg: append($Mg, $index20px);
+$longueur: lenght($newMg);
+
+main {
+    margin: nth($Mg, 1) nth($Mg, 2);
+    section, article {
+        margin: nth($Mg, 3) nth($Mg, 4);
+    }
+    p {
+        margin: $longueur + px nth($newMg, 5);
+    }
+}
+
+.bouton {
+    border-radius: 10px 0;
+    box-shadow: 5px 2px black;
+}
+
+figure, h1 {
+    @extend .bouton;
+    margin: {
+        left: auto;
+        right: auto;
+    }
+    width: 50%;
+}
+
+@mixin posit-f($float) {
+    border: 1px solid black;
+    float: #{$float};
+    margin: {
+        top: 5px;
+        #{$float}: 10px
+    }
+}
+
+@mixin ombre($decalageD: 2px, $decalageG: 2px, $flou: 5px, $color: red) {
+    box-shadow: $decalageD $decalageG $flou $color;
+}
+
+%marge {
+    margin: {
+        left: 10px;
+        right: 10px;
+        top: 5px;
+        bottom: 5px;
+    }
+}
+
+img {
+    @include posit-f(right);
+    @include ombre;
+    @extend %marge;
+}
+
+@function calcul($coef: 1) {
+    @return (25px*$coef);
+}
+
+#identite {
+    @include posit-f(left);
+    @extend %marge;
+    margin: calcul(3);
+}
+
+@mixin coulTxtFond($txtColor) {
+    $luminosite: lightness($txtColor);
+  
+    @if $luminosite > 50 {
+      background-color: darken(white, 40%);
+    } @else {
+      background-color: lighten(black, 40%);
+    }
+    
+    color: $txtColor;
+  }
+
+h1 {
+    @include ombre(8px, 8px, 3px);
+    $col: rgba(115, 255, 255, 0.8);
+    background-color: color.scale($col, $red:50%, $blue:-80%);
+    border-color: color.change($col, $red: 0, $alpha: 1);
+    @include coulTxtFond($col)
+}
