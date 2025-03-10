@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+    <head>
+        <meta charset="utf-8" >
+        <title>Quizz Planète !</title>
+        <style>
+            h1 {
+                text-align: center;
+            }
+            main {
+                width: 760px;
+            }
+            fieldset {
+                margin: 5px auto;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+        </script>
+    </head>
+
+    <body>
+        <main>
+            <h1>Quizz !!!</h1>
+            <form method="" action="" name="quiz">
+                <fieldset>
+                    <legend id="legende"></legend>
+                    <p id="quiz"></p>
+                    <div id="propositions"></div>
+                    <button type="button" id="boutonNext">Question suivante</button>
+                </fieldset>
+            </form>
+        </main>
+        <script>
+            // Tableau comportant le questionnaire
+            // Question, Proposition 1, Proposition 2, Proposition 3, Proposition 4, Bonne réponse
+            let tabQuest = [
+                ["Quelle est la planète la plus proche du soleil ?", "Venus", "Mars", "Terre", "Mercure","4"],
+                ["Quelle est la plus grosse planète du système solaire ?", "Terre", "Uranus", "Jupiter", "Saturne", "3"],
+                ["Combien de lunes a Jupiter ?", "13", "27", "50", "79", "4"],
+                ["Quelle est la planète la plus froide ?", "Uranus", "Mercure", "Saturne", "Venus", "1"]
+            ]
+
+            // Initialisation de la première question.
+            let currentQuestion = 0;
+            let bonneReponse = 0;
+            $("#quiz").append(tabQuest[currentQuestion][0]);
+            $("#legende").text(`Quiz sur le système solaire : Question n°${currentQuestion + 1} sur ${tabQuest.length}`)
+
+            tabQuest[currentQuestion].slice(1, 5).forEach(proposition => {
+                $("#propositions").append(`<input type="radio" id="${proposition}" name="${proposition}" /><label for="${proposition}">${proposition}</label>`);
+            });
+            
+            // Question d'après.
+            $("#boutonNext").on('click', changerQuestion);
+            function changerQuestion() {
+                currentQuestion++;
+                if(currentQuestion < tabQuest.length) {
+                    $("#quiz").empty();
+                    $("#legende").empty();
+                    $("#propositions").empty();
+
+                    // Les propositions
+                    tabQuest[currentQuestion].slice(1, 5).forEach(proposition => {
+                        $("#propositions").append(`<input type="radio" id="${proposition}" name="${proposition}" /><label for="${proposition}">${proposition}</label>`);
+                    });
+    
+                    $("#quiz").append(tabQuest[currentQuestion][0]);
+                    $("#legende").text(`Quiz sur le système solaire : Question n°${currentQuestion + 1} sur ${tabQuest.length}`);
+    
+                    console.log(currentQuestion);
+                } else {
+                    console.log("Quiz fini");
+                }
+            }
+        </script>
+    </body>
+</html>

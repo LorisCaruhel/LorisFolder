@@ -93,14 +93,55 @@ class Automate:
     def supprime_symbole(self, symbole):
         """ supprime le symbole de l'alphabet si symbole appartient à alphabet 
         et retourne un message d'erreur sinon"""
+        if symbole in self.alphabet:
+            arrayAlphabet = list(self.alphabet)
+            indexSymbole = arrayAlphabet.index(symbole)
+            arrayAlphabet.pop(indexSymbole)
+            
+            self.alphabet = "".join(arrayAlphabet)
+            # TODO: Supprimer les transitions dans lesquelles le symbole apparaît. (avec supprime_transition)
+        else:
+            print("Erreur ce symbole n'est pas dans l'alphabet de cette automate")
          
 
     def supprime_transition(self, source_etat, symbole, destination_etat):
-        """ supprime une transition à l'automate. Renvoie une erreur si la transition
-        n'exsite pas."""
+        """Supprime une transition de l'automate. Renvoie une erreur si la transition n'existe pas."""
+        if source_etat in self.transitions:
+            transition_a_supprimer = (destination_etat, symbole)
+            
+            if transition_a_supprimer in self.transitions[source_etat]:
+                self.transitions[source_etat].remove(transition_a_supprimer)
+            else:
+                print(f"Erreur : La transition ({source_etat}, {symbole}, {destination_etat}) n'existe pas.")
+        else:
+            print(f"Erreur : L'état source '{source_etat}' n'existe pas.")
+
         
     def test_mot(self,mot):
         """ Vérifie si un mot est reconnu par l'automate ou pas"""
+        motDecompose = list(mot)
+        currentEtat = self.initial
+        nbCharValid = 0
+
+        for lettre in motDecompose:
+            if lettre in self.alphabet:
+                for tuple in self.transitions[currentEtat]:
+                    if tuple[1] == lettre:
+                        # print("Test de", lettre, "dans etat", currentEtat, "dans tuple", tuple) # DEBUG
+                        currentEtat = tuple[0]
+                        nbCharValid += 1
+            else:
+                print("Symbole", lettre, "pas dans l'alphabet")
+                return False
+
+        if nbCharValid == len(mot) and currentEtat in self.finaux:
+            print("Mot", mot, "reconnue par l'automate")
+            return True
+        elif currentEtat not in self.finaux:
+            print("Erreur : Le mot ne s'arrete pas a un etat final", "(", currentEtat, ")")
+        else: 
+            print("Mot", mot, "non reconnue par l'automate")
+            return False
     
     def __str__(self):
         """ surcharge __str__ pour afficher les automates """
@@ -123,13 +164,27 @@ class Automate:
 
 a=Automate("ab")
 a.ajoute_etat("q0")
-a.ajoute_etat("q1", True)
 a.initial = "q0"
-a.ajoute_transition("q0", "a", "q1")
+a.ajoute_etat("q1")
+a.ajoute_etat("q2")
+a.ajoute_etat("q3")
+a.ajoute_etat("q4", True)
+
 a.ajoute_transition("q0", "b", "q0")
-a.ajoute_transition("q1", "a", "q1")
-a.ajoute_transition("q1", "b", "q1")
-# a.supprime_etat("q1")
+a.ajoute_transition("q0", "a", "q1")
+a.ajoute_transition("q1", "b", "q0")
+a.ajoute_transition("q1", "a", "q2")
+a.ajoute_transition("q2", "a", "q2")
+a.ajoute_transition("q2", "b", "q3")
+a.ajoute_transition("q3", "a", "q4")
+a.ajoute_transition("q3", "b", "q0")
+a.ajoute_transition("q4", "a", "q4")
+a.ajoute_transition("q4", "b", "q4")
+
+a.test_mot("aaba") # Reconnue
+a.test_mot("abaa") # Non reconnue
+a.test_mot("baba") # Non reconnue
+a.test_mot("abaabbaaba") # Reconnue
 
 print(a)
 

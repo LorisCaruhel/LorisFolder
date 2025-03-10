@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+    <head>
+        <meta charset="utf-8" >
+        <title>Club de sport</title>
+        <meta name="description" content="" >
+        <meta name="keywords" content="" >
+    </head>
+
+    <body>
+        <script>
+            class Adherent {
+                static nbAdherent = 0;
+
+                constructor(_nom, _prenom, _adresse, _licence = null) {
+                    this.no_adherent = ++Adherent.nbAdherent;
+                    this.nom = _nom;
+                    this.prenom = _prenom;
+                    this.adresse = _adresse;
+
+                    this.licence = [];
+                    if(_licence) {
+                        this.inscrire(_licence);
+                    }
+                }
+
+                // Getters
+                get noAdherent() { return this._noAdherent; }
+                get nom() { return this._nom; }
+                get prenom() { return this._prenom; }
+                get adresse() { return this._adresse; }
+
+                // Setters
+                set nom(nom) { if (nom.length > 0) this._nom = nom; }
+                set prenom(prenom) { if (prenom.length > 0) this._prenom = prenom; }
+                set adresse(adresse) { if (adresse.length > 0) this._adresse = adresse; }
+
+
+                changerAdresse(_adresse) {
+                    setAdresse(_adresse);
+                }
+
+                inscrire(_licence) {
+                    _licence.inscrire(this);
+                }
+            }
+
+            class Sportif extends Adherent {
+                constructor(_nom, _prenom, _adresse, _licence, _totalPoints) {
+                    super(_nom, _prenom, _adresse, _licence);
+                    this.totalPoints = _totalPoints;
+                }
+
+                // Getters
+                get totalPoints() { return this._totalPoints; }
+
+                // Setters
+                set totalPoints(totalPoints) { this._totalPoints = totalPoints; }
+            }
+
+            class Licence {
+                static nbLicence = 0;
+
+                constructor(_adherent, _grade) {
+                    this.adherent = ++Adherent.nbAdherent;
+                    this.no_licence = ++Licence.nbLicence;
+                    this.grade = [];
+                    this.grade.push(_grade);
+                }
+
+                // Getters
+                get noLicence() { return this._noLicence; }
+                get grade() { return this._grade; }
+                get noAdherent() { return this._noAdherent; }
+
+                // Setters
+                set noLicence(noLicence) { this._noLicence = noLicence; }
+                set grade(grade) { this._grade = grade; }
+                set noAdherent(noAdherent) { this._noAdherent = noAdherent; }
+
+                inscrire(_adherent) {
+                    this.adherent = this.adherent;
+                    this.licence.push(_licence); // A FIX
+                }
+            }
+
+            let licence1 = new Licence(null, "Joueur");
+            let a1 = new Adherent("Loris", "Caruhel", "rue de la soif", licence1);
+            let s1 = new Sportif("Toto", "Lulu", "rue de la pas soif", licence1, 100);
+
+            console.log(a1);
+            console.log(s1);
+            console.log(licence1);
+        </script>
+    </body>
+</html>
