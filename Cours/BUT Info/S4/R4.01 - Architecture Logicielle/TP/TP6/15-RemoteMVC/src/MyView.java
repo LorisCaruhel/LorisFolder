@@ -45,11 +45,11 @@ public class MyView {
 		int responseCode = model.getResponseCode();
 		if (responseCode == HttpURLConnection.HTTP_OK) {
 			System.out.println("Connection reussie");
+			// On met à jour la vue à partir du modèle
+	    	this.update(model);
 		} else {
 			System.out.println("Erreur dans la connection");
 		}
-		// On met à jour la vue à partir du modèle
-	    this.update(model);
 	}
 
 	/**
