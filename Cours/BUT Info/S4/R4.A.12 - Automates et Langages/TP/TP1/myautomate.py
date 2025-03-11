@@ -1,4 +1,4 @@
-
+import numpy as np
 
 class Automate:
     """ Cette classe représente tout type d'automate fini déterministe."""
@@ -99,7 +99,12 @@ class Automate:
             arrayAlphabet.pop(indexSymbole)
             
             self.alphabet = "".join(arrayAlphabet)
-            # TODO: Supprimer les transitions dans lesquelles le symbole apparaît. (avec supprime_transition)
+
+            # Supprimer toutes les transitions où ce symbole apparaît
+            for source_etat, transitions in self.transitions.items():
+                for destination_etat, transition_symbole in transitions:
+                    if transition_symbole == symbole:
+                        self.supprime_transition(source_etat, transition_symbole, destination_etat)
         else:
             print("Erreur ce symbole n'est pas dans l'alphabet de cette automate")
          
@@ -138,11 +143,75 @@ class Automate:
             print("Mot", mot, "reconnue par l'automate")
             return True
         elif currentEtat not in self.finaux:
-            print("Erreur : Le mot ne s'arrete pas a un etat final", "(", currentEtat, ")")
+            print("Erreur : Le mot", mot,"ne s'arrete pas a un etat final", "(", currentEtat, ")")
         else: 
             print("Mot", mot, "non reconnue par l'automate")
             return False
     
+    def successeurs(self, etat):
+        successeurs = []
+        for tuple in self.transitions[etat]:
+            successeurs.append(tuple[0])
+        return np.unique(successeurs)
+
+    def predecesseurs(self, etat):
+        predecesseurs = []
+        for transition in self.transitions.items():
+            # Garder l'état courant pour pouvoir l'ajouter dans predesseurs après
+            currentEtat = transition[0]
+
+            # Pour chaque transitions de cette état vérifier s'il y a une transition vers 
+            # le currentEtat et le mettre dans le tableau si c'est le cas. 
+            for tuple in transition[1]:
+                if tuple[0] == etat:
+                    predecesseurs.append(currentEtat)
+        return np.unique(predecesseurs)
+    
+    def est_complet(self):
+        complet = {}
+
+        # Construction du dictionnaire des symboles présents pour chaque état
+        for etat, transitions in self.transitions.items():
+            if etat not in complet:
+                complet[etat] = set()  # Utilisation d'un ensemble pour éviter les doublons
+            for destination, symbole in transitions:
+                if symbole in complet[etat]:
+                    return False
+                complet[etat].add(symbole)
+
+        # Vérification que chaque état a une transition pour chaque symbole de l'alphabet
+        for etat, symboles in complet.items():
+            if len(symboles) != len(self.alphabet):  
+                return False
+
+        return True
+
+    def complete(self):
+        etat_puits = "P"
+
+        if not self.est_complet():
+            # Ajouter l'état puits s'il n'existe pas encore
+            if etat_puits not in self.etats:
+                self.ajoute_etat(etat_puits)
+
+            # Vérifier chaque état et compléter les transitions manquantes
+            for etat in self.etats:
+                transitions_existantes = []
+                for transition in self.transitions.get(etat, []):
+                    symbole = transition[1]
+                    transitions_existantes.append(symbole)
+
+                for symbole in self.alphabet:
+                    if symbole not in transitions_existantes:
+                        self.ajoute_transition(etat, symbole, etat_puits)
+        else:
+            print("Automate déjà complet")
+
+    def etats_accessibles(self):
+        if len(self.transitions) == len(self.etats):
+            return True
+        return False
+
     def __str__(self):
         """ surcharge __str__ pour afficher les automates """
         ret = "Automate fini :\n"
@@ -183,8 +252,36 @@ a.ajoute_transition("q4", "b", "q4")
 
 a.test_mot("aaba") # Reconnue
 a.test_mot("abaa") # Non reconnue
-a.test_mot("baba") # Non reconnue
+a.test_mot("bababa") # Non reconnue
 a.test_mot("abaabbaaba") # Reconnue
 
 print(a)
 
+successeurs = a.successeurs("q0")
+print("Successeurs de q0 :", successeurs)
+
+predecesseurs = a.predecesseurs("q0")
+print("Predecesseurs de q0 :", predecesseurs)
+
+print("a est complet :", a.est_complet())
+print("a est accessible :", a.etats_accessibles())
+
+
+b=Automate("abc")
+b.ajoute_etat("q0")
+b.initial = "q0"
+b.ajoute_etat("q1")
+b.ajoute_etat("q2")
+b.ajoute_etat("q3", True)
+
+b.ajoute_transition("q0", "a", "q1")
+b.ajoute_transition("q1", "b", "q2")
+b.ajoute_transition("q2", "c", "q3")
+b.ajoute_transition("q3", "a", "q3")
+b.ajoute_transition("q3", "b", "q3")
+b.ajoute_transition("q3", "c", "q3")
+
+print("b est complet :", b.est_complet())
+
+b.complete()
+print(b)
