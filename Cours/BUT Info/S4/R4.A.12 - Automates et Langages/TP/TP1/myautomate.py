@@ -253,8 +253,28 @@ class Automate:
                     coaccessible.append(pred)
                     pile.append(pred)
 
-        return coaccessible 
+        return coaccessible
     
+    def coaccessible(self,etat):
+        if etat not in self.etats:
+            print("Erreur : l'état n'existe pas dans cet automate")
+
+        if etat in self.etats_coaccessible():
+            return True
+        return False
+    
+    def est_coaccessible(self):
+        etatsAccessibles = self.etats_coaccessible()
+        for etat in self.etats:
+            if etat not in etatsAccessibles:
+                return False
+        return True
+    
+    def est_emonde(self):
+        if self.est_coaccessible() and self.est_accessible():
+            return True
+        return False
+
     def __str__(self):
         """ surcharge __str__ pour afficher les automates """
         ret = "Automate fini :\n"
@@ -274,6 +294,7 @@ class Automate:
         return ret
     
 
+# Test
 a=Automate("ab")
 a.ajoute_etat("q0")
 a.initial = "q0"
@@ -310,7 +331,10 @@ print("a est complet :", a.est_complet())
 print("états accessibles de a :", a.etats_accessibles())
 print("q3 est accessible :", a.accessible("q3"))
 print("a est accessible :", a.est_accessible())
-print("états co-accessible de a :", a.etats_coaccessible())
+print("etats co-accessible de a :", a.etats_coaccessible())
+print("q3 est co-accessible de a :", a.coaccessible("q3"))
+print("a est co-accessible :", a.est_coaccessible())
+print("a est emonde :", a.est_emonde())
 
 
 b=Automate("abc")
