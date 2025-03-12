@@ -208,10 +208,53 @@ class Automate:
             print("Automate déjà complet")
 
     def etats_accessibles(self):
-        if len(self.transitions) == len(self.etats):
+        if self.initial is None:
+            return []
+        
+        accessibles = []
+        pile = [self.initial]
+
+        while pile:
+            etat = pile.pop()
+            if etat not in accessibles:
+                accessibles.append(etat)
+                if etat in self.transitions:
+                    for destination, _ in self.transitions[etat]:
+                        if destination not in accessibles:
+                            pile.append(destination)
+        
+        return accessibles
+    
+    def accessible(self, etat):
+        if etat not in self.etats:
+            print("Erreur : l'état n'existe pas dans cet automate")
+
+        if etat in self.etats_accessibles():
             return True
         return False
+    
+    def est_accessible(self):
+        etatsAccessibles = self.etats_accessibles()
+        for etat in self.etats:
+            if etat not in etatsAccessibles:
+                return False
+        return True
 
+    def etats_coaccessible(self):
+        """ Retourne la liste des états co-accessibles en partant des états finaux et en cherchant leurs prédécesseurs """
+        coaccessible = list(self.finaux)  
+        pile = list(self.finaux) 
+
+        while pile:
+            currentEtat = pile.pop()
+            
+            for pred in self.predecesseurs(currentEtat):  # On cherche les prédécesseurs de currentEtat
+                if pred not in coaccessible:
+                    coaccessible.append(pred)
+                    pile.append(pred)
+
+        return coaccessible 
+    
     def __str__(self):
         """ surcharge __str__ pour afficher les automates """
         ret = "Automate fini :\n"
@@ -264,7 +307,10 @@ predecesseurs = a.predecesseurs("q0")
 print("Predecesseurs de q0 :", predecesseurs)
 
 print("a est complet :", a.est_complet())
-print("a est accessible :", a.etats_accessibles())
+print("états accessibles de a :", a.etats_accessibles())
+print("q3 est accessible :", a.accessible("q3"))
+print("a est accessible :", a.est_accessible())
+print("états co-accessible de a :", a.etats_coaccessible())
 
 
 b=Automate("abc")
